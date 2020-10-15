@@ -4,7 +4,7 @@
     <title>Capacitación en R y herramientas de productividad</title>
     <meta charset="utf-8" />
     <meta name="author" content="" />
-    <meta name="date" content="2020-10-14" />
+    <meta name="date" content="2020-10-15" />
     <script src="sesion_7_files/htmlwidgets-1.5.1/htmlwidgets.js"></script>
     <link href="sesion_7_files/str_view-0.1.0/str_view.css" rel="stylesheet" />
     <script src="sesion_7_files/str_view-binding-1.4.0/str_view.js"></script>
@@ -768,8 +768,8 @@ O si .pur[contienen] un patrón, **en cualquier lugar**.
 str_view(frutas, pattern = "an")
 ```
 
-<div id="htmlwidget-3fd5a057edda275c8c21" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-3fd5a057edda275c8c21">{"x":{"html":"<ul>\n  <li>maz<span class='match'>an<\/span>a<\/li>\n  <li>nar<span class='match'>an<\/span>ja<\/li>\n  <li>uva<\/li>\n  <li>plat<span class='match'>an<\/span>o<\/li>\n  <li>pera<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-615b087022e52058f833" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-615b087022e52058f833">{"x":{"html":"<ul>\n  <li>maz<span class='match'>an<\/span>a<\/li>\n  <li>nar<span class='match'>an<\/span>ja<\/li>\n  <li>uva<\/li>\n  <li>plat<span class='match'>an<\/span>o<\/li>\n  <li>pera<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 
 ---
 
@@ -1453,22 +1453,49 @@ background-position: 100% 0%
 
 --
 
-vamos a trabajar con la base de **nacimientos**, cada registro corresponde a un nacimiento ocurrido durante el año 2017.
+## Instrucciones generales
 
+--
+
+Vamos a trabajar con la base **Nacimientos_2017.RData**, donde cada registro corresponde a un nacimiento ocurrido durante el año 2017.
+
+--
+
+Adicionalmente, se subió una base **nacimientos_2017 (mini).RData** que contiene aproximadamente un 10% de los registros, .pur[para que la usen como alternativa a la base **Nacimientos_2017.RData** quienes consideren que su computador tiene poca capacidad de procesamiento].
+
+--
+
+Pueden descargar las bases de datos en un archivo comprimido [pinchando aquí](https://inechile.sharepoint.com/sites/CapacitacinRINE-GeneracinI/Documentos%20compartidos/Generaci%C3%B3n%20I/Trabajo%20final/data/Bases%20trabajo%20final.zip).
+
+--
 
 **Importante:** La tarea puede ser desarrollada en grupos y debe ser entregada en .pur[Rmarkdown] (**última clase**)
 
-## Instrucciones
+--
+
+**Entrega: hasta 28 de octubre del 2020 - 23:59**
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Trabajo final del curso 👩‍🎓👨‍🎓
 
 --
 
-(1). Carga las bases **Nacimientos_2017.RData** y **Proyecciones.RData**.
+## Ejercicios:
 
 --
 
-(2). En la base de nacimientos, realice las siguientes tareas:
+(1). Carga las bases **Nacimientos_2017.RData** y **Proyecciones.RData** (**1 punto**).
 
-- Renombrar todas las variables a minúscula.
+--
+
+(2). En la base de nacimientos, realice las siguientes tareas (**4 puntos**):
+
+- Renombra todas las variables a minúscula.
 - A partir de la variable **comuna** crea la variable **region**.
 - **nota:** La variable **comuna**, corresponde a una codificación que incluye el código de la región, el código de la provincia y el código de la comuna. El largo de la variable es 5 cuando el código de la región es de dos dígitos, y es 4 cuando el código de la región es de un dígito.
 - Crea la fecha de nacimiento (**fecha_nac**) a partir de las variables **dia_nac**, **mes_nac** y **ano_nac**. 
@@ -1485,7 +1512,7 @@ background-position: 100% 0%
 
 - Crea la fecha de inscripción (**fecha_inc**) a partir de las variables **dia_inc**, **mes_inc** y **ano_inc**.
 - Calcula la diferencia, medida en días, entre la fecha de inscripción (**fecha_inc**) y la fecha de nacimiento (**fecha_nac**).
-- Crea la varible "**tramo_edad_madre**", a partir de la variables **edad_m**:
+- Crea la variable "**tramo_edad_madre**", a partir de la variable **edad_m**:
         - Menores de 15 años
         - 15 a 19 años
         - 20 a 24 años
@@ -1497,6 +1524,13 @@ background-position: 100% 0%
         - 50 años y más (no incluir 99)
         - No especificado (edad_m == 99)
 
+--
+
+(3). En la base de proyecciones, realiza las siguientes tareas (**2 puntos**):
+  
+- Renombra todas las variables a minúscula.
+- En los nombres de las variables, reemplaza los espacios en blanco (" ") por un ("_").
+
 ---
 
 background-image: url("imagenes/fondo2.PNG")
@@ -1507,28 +1541,21 @@ background-position: 100% 0%
 
 --
 
-(3). En la base de proyecciones, realiza las siguientes tareas:
-  
-- Renombrar todas las variables a minúscula.
-- En los nombres de las variables, reemplace los espacios en blanco (" ") por un ("_").
+(4). A partir de la base de **nacimientos**, calcula el número de nacimientos por **region**, guárdalo en un objeto llamado **nac_region** e imprímelo (**1 punto**).
 
 --
 
-(4). A partir de la base de **nacimientos**, calcula el número de nacimientos por **region**, y guárdarlo en un objeto llamado **nac_region**.
+(5). A partir de la base de **proyecciones**, calcula el total de la variable **poblacion_2017** por región, guárdalo en un objeto llamado **proy_2017** e imprímelo (**1 punto**).
 
 --
 
-(5). A partir de la base de **proyecciones**, calcula el total de la variable **poblacion_2017** por region, y guárdalo en un objeto llamado **proy_2017**.
-
---
-
-(6). Une las bases **nac_region** y **proy_2017**, y calcula la tasa bruta de natalidad (por 1.000 habitantes) por region ({nacimientos en la región}/{proyección de población en la región} x 1000). Para unir las bases, puedes utilizar `left_join()`.
+(6). Une las bases **nac_region** y **proy_2017**, calcula la tasa bruta de natalidad (por 1.000 habitantes) por region `\(\frac{NacimientosEn La Región}{Proyección De Población En La Región}*100\)` e imprime el resultado. Para unir las bases, puedes utilizar `left_join()` (**3 puntos**). 
 
 - **nota:** La tasa bruta de natalidad no necesariamente deberá coincidir con la publicada, pues el dato publicado se calcula *con  nacidos vivos corregidos, de acuerdo con el método: “Estimación del registro tardío de nacimientos”*.
 
 --
 
-(7). A partir de la base de **nacimientos**, calcula el número de nacimientos por **tramo_edad_madre** (la variable que ya creaste).
+(7). A partir de la base de **nacimientos**, calcula el número de nacimientos por **tramo_edad_madre** (la variable que ya creaste) e imprime la tabla resultante (**1 punto**).
 
 ---
 
@@ -1539,18 +1566,20 @@ background-position: 100% 0%
 # Trabajo final del curso 👩‍🎓👨‍🎓
 
 
-(8). Crea un objeto llamado **validacion** (utilizar el paquete `validate`), que incluya las siguientes reglas:
+--
 
-- Si la variable **CATEG_M** == 0, la variable **OCUPA_P** debe tener un valor entre 2, 3, 4, 5, 6, 8 o X.
-- Si la variable **CATEG_M** == 1, la variable **OCUPA_P** solo debe tener valor 1.
-- Si la variable **CATEG_M** == 2, la variable **OCUPA_P** puede tener valor entre 0 y 8, o X.
-- Si la variable **CATEG_M** == 3, la variable **OCUPA_P** solo puede tener valor entre 5 y 9, o X.
-- Si la variable **CATEG_M** == 4, la variable **OCUPA_P** solo puede tener valor entre 2 y 3, 5 y 9, o X.
-- Si la variable **CATEG_M** == 9, la variable **OCUPA_P** solo puede tener valor X.
+(8). Crea un objeto llamado **validacion** (utilizar el paquete `validate`), que incluya las siguientes reglas (**3 puntos**):
+
+- Si la variable **categ_m** == 0, la variable **ocupa_m** debe tener un valor entre 2, 3, 4, 5, 6, 8 o x.
+- Si la variable **categ_m** == 1, la variable **ocupa_m** solo debe tener valor 1.
+- Si la variable **categ_m** == 2, la variable **ocupa_m** puede tener valor entre 0 y 8, o x.
+- Si la variable **categ_m** == 3, la variable **ocupa_m** solo puede tener valor entre 5 y 9, o x.
+- Si la variable **categ_m** == 4, la variable **ocupa_m** solo puede tener valor entre 2 y 3, 5 y 9, o x.
+- Si la variable **categ_m** == 9, la variable **ocupa_m** solo puede tener valor x.
 	  
 --
 
-(9). A partir del objeto **validacion**, identifica el número de **fails** en la base. A partir de este número, identifica la causa de los errores (en caso de existir), y escribe la razón de los errores.
+(9). A partir del objeto **validacion**, identifica el número de **fails** en la base. A partir de este número, identifica la causa de los errores (en caso de existir), y escribe la razón de los errores (**2 puntos**).
 
 ---
 
@@ -1562,15 +1591,15 @@ background-position: 100% 0%
 
 --
 
-(10). Tanto para la madre como para el padre, genera un gráfico boxplot que muestre la edad (eje y) y el grupo ocupacional, variable **OCUPA_P** (eje x). Utiliza el paquete `ggplot2`, la función `ggplot()` y considera el tipo de gráfico `geom_boxplot`. Para la generación de cada uno de estos gráficos sigue los siguientes pasos (estos pasos se explicarán con la madre, pero para los padres el proceso es análogo):
-- Utiliza la base de nacimientos.
-- Filtra la base de forma tal de no considerar los casos donde la variable **edad_m** sea igual a 99 (`filter(edad_m != 99)`).
-- Filtra la base de forma tal de solo quedar con los registros donde la variable **activ_m** sea igual a 1 (`filter(activ_m == 1)`)
-- Grafica lo solicitado (`aes(x = ocup_p, y = edad_m)`).
+(10). Tanto para la madre como para el padre, genera un gráfico boxplot que muestre la edad (eje y) y el grupo ocupacional, variable **ocupa_p** y **ocupa_m**, respectivamente (eje x). Utiliza el paquete `ggplot2`, la función `ggplot()` y considera el tipo de gráfico `geom_boxplot`. Para la generación de cada uno de estos gráficos sigue los siguientes pasos (estos pasos se explicarán con la madre, pero para los padres el proceso es análogo) (**4 puntos**):  
+- Utiliza la base de **nacimientos**.
+- Filtra la base de forma tal de no considerar los casos donde la variable **edad_m** sea igual a 99.
+- Filtra la base de forma tal de solo quedar con los registros donde la variable **activ_m** sea igual a 1.
+- Grafica lo solicitado.
 
 --
 
-(11). Responde a las siguientes preguntas:
+(11). Consulta la base de datos de **nacimientos** y responde las siguientes preguntas (**2 puntos**):
 - ¿En qué grupo ocupacional se encuentra el promedio más alto de la edad de la madre?, ¿en cuál grupo el promedio más bajo?
 - ¿En qué grupo ocupacional se encuentra el promedio más alto de la edad del padre?, ¿en cuál grupo el promedio más bajo?
 
