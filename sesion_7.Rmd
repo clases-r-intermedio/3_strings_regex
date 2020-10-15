@@ -1189,6 +1189,28 @@ background-image: url("imagenes/fondo2.PNG")
 background-size: contain;
 background-position: 100% 0%
 
+# Trabajo final del curso 👩‍🎓👨‍🎓
+
+--
+
+Pista ejercicio 10: así se ven los gráficos para la ocupación de la madre (ocupa_m) y la del padre (ocupa_p).
+
+**nota:** los graficos se generaron con la base **Nacimientos_2017** completa, no con la **Nacimientos_2017 (mini)**.
+
+--
+
+.pull-left[![](imagenes/boxplot_m.png)]
+
+--
+
+.pull-left[![](imagenes/boxplot_h.png)]
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
 # Referencias
 
 .medium-par[Nada de esto sería posible sin:]
