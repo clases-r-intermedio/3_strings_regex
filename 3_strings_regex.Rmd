@@ -1,6 +1,6 @@
 ---
-title: "Capacitación en R y herramientas de productividad"
-subtitle: "Sesión 7"  
+title: "Capacitación en R y herramientas de productividad - nivel intermedio"
+subtitle: "Sesión 3"  
 author: 
 date: '`r Sys.Date()`'
 output:
@@ -23,13 +23,11 @@ class: center, middle
 <img src="imagenes/logo_portada2.png" width="200" />
 
 
-## Capacitación en R y herramientas de productividad
+## Capacitación en R y herramientas de productividad - nivel intermedio
 
-## Proyecto Estratégico Servicios Compartidos para la Producción Estadística
+## Proyecto Estratégico Metodologías y Ciencia de Datos para la Producción Estadística
 
-## Exploración y edición de strings
-
-### Octubre 2020
+### Septiembre 2022
 
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = TRUE)
@@ -51,7 +49,7 @@ background-image: url("imagenes/fondo2.PNG")
 background-size: contain;
 background-position: 100% 0%
 
-# Sesión 7: Manejo de strings
+# Sesión 3: Manejo de strings
 
 --
 <br/>
@@ -117,7 +115,7 @@ background-position: 100% 0%
 --
 <br/>
 
-Durante el curso hemos .pur[creado] o .pur[manipulado] strings (o cadenas de caracteres) en múltiples oportunidades.
+Probablemente en su experiencia programando, con `R` u otro *software*, han .pur[creado] o .pur[manipulado] strings (o cadenas de caracteres) en en alguna ocasión.
 
 --
 
@@ -333,7 +331,7 @@ Este es un trozo de una expresión regular que evalúa si una dirección de corr
 <img src="imagenes/regex_email.PNG" width="500" height = 280 />
 ]
 
-fuente: [R para ciencia de datos](https://es.r4ds.hadley.nz/cadenas-de-caracteres.html)
+fuente: [R para ciencia de datos](https://r4ds.had.co.nz/strings.html)
 
 ---
 
@@ -379,7 +377,7 @@ background-position: 100% 0%
 
 --
 
-`stringi` está diseñado para ser **comprehensivo** (244 funciones).
+`stringi` está diseñado para ser **comprehensivo** (256 funciones).
 
 --
 
@@ -497,7 +495,7 @@ Escogimos solo algunas de las equivalencias que existen entre `stringr` y `R` ba
 
 --
 
-Para revisar todas las equivalencias y conocer más acerca de `stringr` puedes pinchar [aquí](https://stringr.tidyverse.org/articles/from-base.html).
+Para conocer más acerca de `stringr` puedes pinchar [aquí](https://stringr.tidyverse.org/).
 
 ---
 
@@ -533,8 +531,12 @@ O podríamos querer, por el contrario, .pur[remover] los números.
 direcciones <- c("Avenida Libertador Bernardo O'Higgins 1058" , 
                  "Calle Morandé 801", "calle Paseo Bulnes 2018")
 
-str_replace(direcciones, pattern = c("\\d+"), replacement = "")
+str_replace(direcciones, pattern = c("\\s\\d+"), replacement = "")
 ```
+
+--
+
+¿Alguien intuye lo que hace **"\\\s\\\d+"**?
 
 ---
 
@@ -557,6 +559,10 @@ str_extract(direcciones, pattern = "\\D+")
 
 --
 
+¿Qué hizo **"\\\D+"**?
+
+--
+
 Quizás .pur[no nos interesa] la denominación de calle o avenida y queremos solo el nombre y número.
 
 --
@@ -564,6 +570,10 @@ Quizás .pur[no nos interesa] la denominación de calle o avenida y queremos sol
 ```{r}
 str_replace(direcciones , pattern = "^\\w+\\s", replacement = "")
 ```
+
+--
+
+¿Qué creen que hace esta regex **"^\\\w+\\\s"**?
 
 ---
 
@@ -694,7 +704,7 @@ library(guaguas)
 
 --
 
-**Ejemplo:** Si queremos detectar y tabular solamente a las personas que en su nombre contienen el patrón "eta", podríamos hacer así.
+**Ejemplo:** Si queremos detectar y tabular solamente a las personas que en su nombre contienen el patrón "eta", podríamos hacerlo así.
 
 --
 
@@ -718,19 +728,23 @@ Ahora ustedes:
 
 --
 
-1. Tabular los nombres solo de las mujeres que tienen un nombre terminado en "o".
+1. Tabular los nombres solo de las mujeres que tienen un nombre terminado en "o" nacidas el mismo año que tú.
 
 --
 
-2. Tabular los nombres solo de los hombres que tienen un nombre terminado en "a".
+2. Tabular los nombres solo de los hombres que tienen un nombre terminado en "a" nacidos el mismo año que tú.
 
 --
 
-3. Nombres de personas que su nombre termine con "e", con o sin acento.
+3. Nombres de personas que su nombre termine con "e", con o sin acento, nacidas el mismo año que tú.
 
 --
 
-4. Crea una nueva variable en tu dataframe, de nombre **"inicial"**, que contenga la primera letra del nombre. (👀 esto NO lo hemos visto, revisen la función `str_sub()`)
+4. Crea dos nuevas variables en tu dataframe: 
+    - **"first_letters"**, que contenga las s primeras letra de cada nombre y 
+    - **"last_letters"**, que contenga las últimas 2 letras de cada nombre. 
+    
+(👀 esto NO lo hemos visto, revisen la función `str_sub()`)
 
 ---
 
@@ -746,7 +760,7 @@ background-position: 100% 0%
 
 ```{r}
 guaguas %>% 
-  filter(sexo == "F" & str_detect(nombre, "o$")) %>%
+  filter(sexo == "F" & anio == 1985 & str_detect(nombre, "o$")) %>%
   count(nombre)
 ```
 
@@ -763,7 +777,7 @@ background-position: 100% 0%
 
 ```{r}
 guaguas %>% 
-  filter(sexo == "M" & str_detect(nombre, "a$")) %>%
+  filter(sexo == "M" & anio == 1985 & str_detect(nombre, "a$")) %>%
   count(nombre)
 ```
 
@@ -779,7 +793,7 @@ background-position: 100% 0%
 
 ```{r}
 guaguas %>% 
-  filter(str_detect(nombre, "(e|é)$")) %>% 
+  filter(anio == 1985 & str_detect(nombre, "(e|é)$")) %>% 
   count(nombre)
 ```
 
@@ -795,8 +809,37 @@ background-position: 100% 0%
 
 ```{r}
 guaguas <- guaguas %>% 
-  mutate(inicial = str_sub(nombre, 1, 1))
-guaguas %>% count(inicial)
+  mutate(first_letters = str_sub(nombre, 1, 2),
+         last_letters = str_sub(nombre, -2, -1))
+guaguas %>% select(nombre, first_letters, last_letters) %>% head()
+```
+
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Otras expresiones regulares (regex)
+
+<br/>
+--
+
+Vamos a revisar algunas de las expresiones regulares más utilizadas.
+
+--
+
+Primero intentaremos interpretarlas en base a la .pur[intuición].
+
+--
+
+```{r, echo = F}
+regex1 = data.frame(symbol = c("\\\\d", "[:digit:]", "[0-9]", "\\\\w", "[:word:]", "[A-Z]", "[a-z]", 
+                              "[A-Za-z]", "[:alpha:]", "[aeiou]", '\\\\s', "(?i)"),
+                   mean = c(" ", " "," ", " " , " ", " "," ", " ", " "," ", " ", " "))
+regex1 %>% kable()
+
 ```
 
 ---
@@ -809,18 +852,36 @@ background-position: 100% 0%
 
 --
 
-Vamos a revisar algunas expresiones regulares más
+```{r, echo = F}
+regex2 = data.frame(symbol = c("a+", "a*", "a?", "\\d{n}", "a{n,m}", "a{,m}", "a{n,}", "[:punct:]","[^ab]",
+                               "[^0-9]", "\\D", "\\W", "\\S", "^a", "a$"),
+                   mean = c(" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "))
+regex2 %>% kable()
+
+```
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Otras expresiones regulares (regex)
+
+--
+
+Vamos a revisar algunas de las expresiones regulares más utilizadas
 
 ```{r, echo = F}
-regex1 = data.frame(symbol = c("\\d", "[:digit:]", "[0-9]", "\\w", "[:word:]", "[A-Z]", "[a-z]", 
-                              "[A-Za-z]", "[:alpha:]", "[aeiou]", '\\s'),
+regex1 = data.frame(symbol = c("\\\\d", "[:digit:]", "[0-9]", "\\\\w", "[:word:]", "[A-Z]", "[a-z]", 
+                              "[A-Za-z]", "[:alpha:]", "[aeiou]", '\\\\s', "\\\\S", "(?i)"),
                    mean = c("coincide con números", "coincide con números","coincide con números", 
-                            "coincide con letras, números y guiones bajos",
-                            "coincide con letras, úmeros y guiones bajos", "coincide con letras mayúsculas", 
-                            "coincide con letras minúsculas", "coincide con letras mayúsculas y minúsculas",
+                            "coincide con letras, números y guiones bajos", "coincide con letras, números y guiones bajos",
+                            "coincide con letras mayúsculas", "coincide con letras minúsculas", 
+                            "coincide con letras mayúsculas y minúsculas",
                             "coincide con letras mayúsculas y minúsculas", 
                             "entre parentesis cuadrados se pueden crear patrones personalizados",
-                            "coincide con espacios"))
+                            "coincide con espacios", "distinto de espacios", "case insensitive"))
 regex1 %>% kable()
 
 ```
@@ -847,6 +908,204 @@ regex2 = data.frame(symbol = c("a+", "a*", "a?", "\\d{n}", "a{n,m}", "a{,m}", "a
                             "a está al principio", "a está al final"))
 regex2 %>% kable()
 
+```
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Hagamos ejercicios con texto libre
+
+--
+
+Vamos a utilizar una interfaz gráfica que interpreta expresiones regulares.
+
+--
+
+.center[
+<img src="imagenes/interfaz-regex.PNG" width="700" height = 300 />
+]
+
+--
+
+No tiene un intérprete de regex en R, pero .pur[las regex se implementan de forma similar en distintos lenguajes].
+
+--
+
+Para acceder a la interfaz pincha [aquí](https://regex101.com/r/wv8RnO/1).
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Hagamos ejercicios con texto libre
+
+--
+
+Utilizaremos el siguiente texto para explorar:
+
+--
+
+```{r, eval = F}
+Hoooola, mi nombre es Ignacio, soy sociólogo de formación y trabajo en el INE hace ya algunos años... 
+Mi teléfono es: +569 87622455 /
+Mi correo electrónico del trabajo es <_ifaglonij@ine.gob.cl_> 
+Uno de mis correos personales es: <ignacio.aglonij@gmail.com> 
+Como le pasa a mucha gente, el primer correo electrónico que tuve no era muy serio...<gatoflojo@hotmail.cl>  
+Mi dirección es Paseo Bulnes 418, piso 1. Mmmm, ¿qué más les puedo contar? 
+Estoy haciendo un posgrado (o postgrado, no sé cómo se dice), un master en Tecnologías de la Información en la U de Chile y no doy fe de lo que digo aquí sea verdad... (quizas una que otra cosa sí)
+
+Esto si que es cierto:
+Nro tarjeta de crédito: 6753 9870 8768 8976
+Fecha de vencimiento: 06/25
+Número de seguridad: 896
+```
+
+--
+
+Cópienlo y péguenlo en la interfaz de **regex**.
+
+--
+
+Veamos si funcionan algunas de las **regex** que revisamos.
+
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Hagamos ejercicios con texto libre
+
+--
+
+.pur[.big-par[Ahora ustedes:]]
+
+--
+
+- Detecta el saludo "Hola", independiente de lo coloquial que sea (de la cantidad de "o"). Prueba dos formas de regex.
+
+--
+
+- Capta tanto la palabra "posgrado" como "postgrado". Prueba dos formas de regex.
+
+--
+
+- Detecta la expresión "Mmmm".
+
+--
+
+- Detecta el patrón del número de celular completo.
+
+--
+
+- Valida el patrón de los correos gmail y hotmail.
+
+--
+
+- Valida el patrón de un correo INE (@ine.gob.cl).
+
+--
+
+- Detecta un patrón de número de tarjeta de crédito.
+
+--
+
+- Detecta una fecha de vencimiento de una tarjeta de crédito.
+
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Hagamos ejercicios con texto libre
+
+--
+
+.pur[.big-par[Respuestas:]]
+
+--
+
+- Detecta el saludo "Hola", independiente de lo coloquial que sea (de la cantidad de "o"). Prueba dos formas de regex.
+
+```{r, eval = F}
+Ho*la | Ho+la
+```
+
+--
+
+- Capta tanto la palabra "posgrado" como "postgrado". Prueba dos formas de regex.
+
+```{r, eval = F}
+post?grado | po(s|st)grado
+```
+
+--
+
+- Detecta la expresión "Mmmm".
+
+```{r, eval = F}
+(?i)(Mm)+
+```
+
+--
+
+- Detecta el patrón del número de celular completo.
+
+```{r, eval = F}
+\+\d{3}\s\d{8}
+```
+
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Hagamos ejercicios con texto libre
+
+--
+
+.pur[.big-par[Respuestas:]]
+
+--
+
+- Valida el patrón de los correos gmail y hotmail.
+
+```{r, eval = F}
+[a-z]+\@[a-z]+.[a-z]{2,3}
+```
+
+--
+
+- Valida el patrón de un correo INE (@ine.gob.cl).
+
+```{r, eval = F}
+[a-z]+\@[a-z]{3}.[a-z]{3}.[a-z]{2}
+```
+
+--
+
+- Detecta un patrón de número de tarjeta de crédito.
+
+```{r, eval = F}
+([0-9]{4}\\s){3}[0-9]{4}
+```
+
+--
+
+- Detecta una fecha de vencimiento de una tarjeta de crédito.
+
+```{r, eval = F}
+[[:digit:]]{2}\/[[:digit:]]{2} 
 ```
 
 ---
@@ -949,17 +1208,39 @@ background-position: 100% 0%
 
 --
 
-1. .medium-par[¿Cómo lo harían para homologar la ciudad en una variable limpia?]
+1- .medium-par[¿Cómo lo harían para homologar la ciudad en una variable limpia?]
 
 --
 
-**hint:** pueden usar `case_when()` para crear una variable limpia.
+**hint:** pueden usar `case_when()` para crear una variable limpia `ciudad_clean`.
 
 --
 
-**Respuesta:**
+2- Como pueden observar, los teléfonos no están en un solo formato.
 
 --
+
+```{r}
+telefonos %>% select(numero_telefonico) %>% head()
+```
+  
+Podemos usar las herramientas aprendidas para homologar el formato, eliminando los números que son estandar en una nueva variable `fono_clean`.
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Ejercicio express
+
+--
+
+.pur[.big-par[Respuestas:]]
+
+--
+
+1- Limpieza ciudad.
 
 ```{r}
 telefonos = telefonos %>% 
@@ -978,28 +1259,23 @@ background-image: url("imagenes/fondo2.PNG")
 background-size: contain;
 background-position: 100% 0%
 
-# Otras aplicaciones con regex
+# Ejercicio express
 
 --
 
-Como pueden observar, los teléfonos no están en un solo formato.
+.pur[.big-par[Respuestas:]]
 
 --
 
-```{r}
-telefonos %>% count(str_length(numero_telefonico))
-```
 
---
-
-Podemos usar las herramientas aprendidas para homologar el formato, eliminando los números que son estandar (+569).
-
---
+2- Limpieza fono.
 
 ```{r}
 telefonos = telefonos %>%
   mutate(fono_clean = str_sub(numero_telefonico, start = -8 , end = -1))
-telefonos %>% count(str_length(fono_clean))
+telefonos %>% 
+  select(numero_telefonico, fono_clean) %>% 
+  head()
 ```
 
 ---
@@ -1021,7 +1297,7 @@ background-position: 100% 0%
 
 --
 
-.medium-par[Es muy difícil manejar todas las herramientas, lo importante es .pur[entender su lógica y saber buscar]]
+.medium-par[Es muy difícil manejar todas las herramientas, lo importante es .pur[entender su lógica y saber buscar]].
 
 ---
 
@@ -1029,31 +1305,27 @@ background-image: url("imagenes/fondo2.PNG")
 background-size: contain;
 background-position: 100% 0%
 
-# Trabajo final del curso 👩‍🎓👨‍🎓
+# Ejercicio para la 🏠
 
 --
 
-## Instrucciones generales
+A partir de la base de datos de la encuesta Casen 2020, disponible en la carpeta de la clase de hoy "casen_2020_edit.feather", realice las siguientes tareas
 
---
+```{r, eval = F}
+library(feather)
+library(tidyverse)
 
-Vamos a trabajar con la base **Nacimientos_2017.RData**, donde cada registro corresponde a un nacimiento ocurrido durante el año 2017.
+casen = read_feather("data/casen_2020_edit.feather")
+```
 
---
+1- Ayudándote de expresiones regulares, y de la manera más suscinta que puedas, selecciona todas las variables de cuestionario de:
 
-Adicionalmente, se subió una base **nacimientos_2017 (mini).RData** que contiene aproximadamente un 10% de los registros, .pur[para que la usen como alternativa a la base **Nacimientos_2017.RData** quienes consideren que su computador tiene poca capacidad de procesamiento].
+    - el módulo de Ocupación
+    - el módulo de vivienda
 
---
+El output debe ser una tabla solo con las variables de cada módulo, por separado.
 
-Pueden descargar las bases de datos en un archivo comprimido [pinchando aquí](https://inechile.sharepoint.com/sites/CapacitacinRINE-GeneracinI/Documentos%20compartidos/Generaci%C3%B3n%20I/Trabajo%20final/data/Bases%20trabajo%20final.zip).
-
---
-
-**Importante:** La tarea puede ser desarrollada en grupos y debe ser entregada en .pur[Rmarkdown] (**última clase**)
-
---
-
-**Entrega: hasta 28 de octubre del 2020 - 23:59**
+**nota:** puedes omitir las variables construidas ex-post en cada módulo.
 
 ---
 
@@ -1061,24 +1333,24 @@ background-image: url("imagenes/fondo2.PNG")
 background-size: contain;
 background-position: 100% 0%
 
-# Trabajo final del curso 👩‍🎓👨‍🎓
+# Ejercicio para la 🏠
 
 --
 
-## Ejercicios:
+2- La tabla "casen_2020_edit.feather" contiene las variables `o9a`, `o9b` y `o24`, que representan, respectivamente, "ocupación", "tareas en la ocupación" y "rama de actividad económica" de las personas que declaran estar ocupadas en el periodo de referencia.
 
---
+Estas variables son utilizadas como insumo para la codificación automática de los clasificadores de ocupación y rama de actividad económica.
 
-(1). Carga las bases **Nacimientos_2017.RData** y **Proyecciones.RData** (**1 punto**).
+Crea una función que reciba como argumento una variable character y la procese de la siguiente manera:
+    - Pase todos los caracteres de una glosa a minúscula
+    - Remueva todos los signos de puntuación y caracteres especiales
+    - Remueva todos los números
+    - Extraiga espacios adicionales entre palabras
+    - Remueva *stopwords* (para esto pueden usar las librerías `tm`, `quanteda`, entre otras)
+    
+La función debe retornar una variable con glosas procesadas.
 
---
-
-(2). En la base de nacimientos, realice las siguientes tareas (**4 puntos**):
-
-- Renombra todas las variables a minúscula.
-- A partir de la variable **comuna** crea la variable **region**.
-- **nota:** La variable **comuna**, corresponde a una codificación que incluye el código de la región, el código de la provincia y el código de la comuna. El largo de la variable es 5 cuando el código de la región es de dos dígitos, y es 4 cuando el código de la región es de un dígito.
-- Crea la fecha de nacimiento (**fecha_nac**) a partir de las variables **dia_nac**, **mes_nac** y **ano_nac**. 
+No es necesario que evalúes tu función, basta con el código 😁
 
 ---
 
@@ -1086,124 +1358,17 @@ background-image: url("imagenes/fondo2.PNG")
 background-size: contain;
 background-position: 100% 0%
 
-# Trabajo final del curso 👩‍🎓👨‍🎓
+# Ejercicio para la 🏠
+
+<br/>
 
 --
 
-- Crea la fecha de inscripción (**fecha_inc**) a partir de las variables **dia_inc**, **mes_inc** y **ano_inc**.
-- Calcula la diferencia, medida en días, entre la fecha de inscripción (**fecha_inc**) y la fecha de nacimiento (**fecha_nac**).
-- Crea la variable "**tramo_edad_madre**", a partir de la variable **edad_m**:
-        - Menores de 15 años
-        - 15 a 19 años
-        - 20 a 24 años
-        - 25 a 29 años
-        - 30 a 34 años
-        - 35 a 39 años
-        - 40 a 44 años
-        - 45 a 49 años
-        - 50 años y más (no incluir 99)
-        - No especificado (edad_m == 99)
+Las tareas deberán ser entregadas a través de git. En el repositorio de gitlab que hemos estado usando existe una rama llamada tareas, en la cual hay una carpeta para cada clase. Hagan fetch (o pull) de esa rama y empujen sus tareas a la carpeta correspondiente. La estructura del archivo debe ser la siguiente: nombre_apellido1_apellido2.R
 
---
+La url es la siguiente: https://gitlab.com/inesscc/demostracion_git.git
 
-(3). En la base de proyecciones, realiza las siguientes tareas (**2 puntos**):
-  
-- Renombra todas las variables a minúscula.
-- En los nombres de las variables, reemplaza los espacios en blanco (" ") por un ("_").
-
----
-
-background-image: url("imagenes/fondo2.PNG")
-background-size: contain;
-background-position: 100% 0%
-
-# Trabajo final del curso 👩‍🎓👨‍🎓
-
---
-
-(4). A partir de la base de **nacimientos**, calcula el número de nacimientos por **region**, guárdalo en un objeto llamado **nac_region** e imprímelo (**1 punto**).
-
---
-
-(5). A partir de la base de **proyecciones**, calcula el total de la variable **poblacion_2017** por región, guárdalo en un objeto llamado **proy_2017** e imprímelo (**1 punto**).
-
---
-
-(6). Une las bases **nac_region** y **proy_2017**, calcula la tasa bruta de natalidad (por 1.000 habitantes) por region $\frac{NacimientosEn La Región}{Proyección De Población En La Región}*1000$ e imprime el resultado. Para unir las bases, puedes utilizar `left_join()` (**3 puntos**). 
-
-- **nota:** La tasa bruta de natalidad no necesariamente deberá coincidir con la publicada, pues el dato publicado se calcula *con  nacidos vivos corregidos, de acuerdo con el método: “Estimación del registro tardío de nacimientos”*.
-
---
-
-(7). A partir de la base de **nacimientos**, calcula el número de nacimientos por **tramo_edad_madre** (la variable que ya creaste) e imprime la tabla resultante (**1 punto**).
-
----
-
-background-image: url("imagenes/fondo2.PNG")
-background-size: contain;
-background-position: 100% 0%
-
-# Trabajo final del curso 👩‍🎓👨‍🎓
-
-
---
-
-(8). Crea un objeto llamado **validacion** (utilizar el paquete `validate`), que incluya las siguientes reglas (**3 puntos**):
-
-- Si la variable **categ_m** == 0, la variable **ocupa_m** debe tener un valor entre 2, 3, 4, 5, 6, 8 o x.
-- Si la variable **categ_m** == 1, la variable **ocupa_m** solo debe tener valor 1.
-- Si la variable **categ_m** == 2, la variable **ocupa_m** puede tener valor entre 0 y 8, o x.
-- Si la variable **categ_m** == 3, la variable **ocupa_m** solo puede tener valor entre 5 y 9, o x.
-- Si la variable **categ_m** == 4, la variable **ocupa_m** solo puede tener valor entre 2 y 3, 5 y 9, o x.
-- Si la variable **categ_m** == 9, la variable **ocupa_m** solo puede tener valor x.
-	  
---
-
-(9). A partir del objeto **validacion**, identifica el número de **fails** en la base. A partir de este número, identifica la causa de los errores (en caso de existir), y escribe la razón de los errores (**2 puntos**).
-
----
-
-background-image: url("imagenes/fondo2.PNG")
-background-size: contain;
-background-position: 100% 0%
-
-# Trabajo final del curso 👩‍🎓👨‍🎓
-
---
-
-(10). Tanto para la madre como para el padre, genera un gráfico boxplot que muestre la edad (eje y) y el grupo ocupacional, variable **ocupa_p** y **ocupa_m**, respectivamente (eje x). Utiliza el paquete `ggplot2`, la función `ggplot()` y considera el tipo de gráfico `geom_boxplot`. Para la generación de cada uno de estos gráficos sigue los siguientes pasos (estos pasos se explicarán con la madre, pero para los padres el proceso es análogo) (**4 puntos**):  
-- Utiliza la base de **nacimientos**.
-- Filtra la base de forma tal de no considerar los casos donde la variable **edad_m** sea igual a 99.
-- Filtra la base de forma tal de solo quedar con los registros donde la variable **activ_m** sea igual a 1.
-- Grafica lo solicitado.
-
---
-
-(11). Consulta la base de datos de **nacimientos** y responde las siguientes preguntas (**2 puntos**):
-- ¿En qué grupo ocupacional se encuentra el promedio más alto de la edad de la madre?, ¿en cuál grupo el promedio más bajo?
-- ¿En qué grupo ocupacional se encuentra el promedio más alto de la edad del padre?, ¿en cuál grupo el promedio más bajo?
-
----
-
-background-image: url("imagenes/fondo2.PNG")
-background-size: contain;
-background-position: 100% 0%
-
-# Trabajo final del curso 👩‍🎓👨‍🎓
-
---
-
-Pista ejercicio 10: así se ven los gráficos para la ocupación de la madre (ocupa_m) y la del padre (ocupa_p).
-
-**nota:** los graficos se generaron con la base **Nacimientos_2017** completa, no con la **Nacimientos_2017 (mini)**.
-
---
-
-.pull-left[![](imagenes/Boxplot_m.png)]
-
---
-
-.pull-left[![](imagenes/Boxplot_h.png)]
+**Nota: Es deseable que las tareas solo contengan funciones**
 
 ---
 
@@ -1244,10 +1409,8 @@ class: center, middle
 <img src="imagenes/logo_portada2.png" width="200" />
 
 
-## Capacitación en R y herramientas de productividad
+## Capacitación en R y herramientas de productividad - nivel intermedio
 
-## Proyecto Estratégico Servicios Compartidos para la Producción Estadística
+## Proyecto Estratégico Metodologías y Ciencia de Datos para la Producción Estadística
 
-## Procesamiento de bases de datos (2)
-
-### Octubre 2020
+### Septiembre 2022

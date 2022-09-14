@@ -1,0 +1,2110 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Capacitación en R y herramientas de productividad - nivel intermedio</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="" />
+    <meta name="date" content="2022-09-14" />
+    <script src="3_strings_regex_files/header-attrs-2.14/header-attrs.js"></script>
+    <script src="3_strings_regex_files/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+    <link href="3_strings_regex_files/str_view-0.1.0/str_view.css" rel="stylesheet" />
+    <script src="3_strings_regex_files/str_view-binding-1.4.0/str_view.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+class: center, middle
+
+.linea-superior[]
+.linea-inferior[]
+
+
+&lt;img src="imagenes/logo_portada2.png" width="200" /&gt;
+
+
+## Capacitación en R y herramientas de productividad - nivel intermedio
+
+## Proyecto Estratégico Metodologías y Ciencia de Datos para la Producción Estadística
+
+### Septiembre 2022
+
+
+
+
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Sesión 3: Manejo de strings
+
+--
+&lt;br/&gt;
+
+.medium-par[Introducción al manejo de strings⛓️ y `stringr`🎻]
+&lt;br/&gt;
+&lt;br/&gt;
+
+--
+
+.medium-par[Expresiones regulares 📏]
+&lt;br/&gt;
+&lt;br/&gt;
+
+--
+
+.medium-par[Aplicaciones para la exploración y edición de strings 🪓🔨]
+&lt;br/&gt;
+&lt;br/&gt;
+
+---
+
+background-image: url(imagenes/patterns.PNG)
+background-size: contain
+
+
+.center[.big-par-red[Introducción al manejo de strings⛓️ y `stringr`🎻️]]
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Manejo de strings
+
+--
+&lt;br/&gt;
+
+.center[.big-par[¿Qué son las .pur[strings]?🤔]]
+
+--
+
+.center[.big-par[¿Creen que es importante saber .pur[manipular strings]? ¿Por qué?]]
+
+--
+
+.center[.medium-par[¿Qué tareas de su trabajo creen que podrían .pur[optimizar]?]]
+
+--
+
+.center[.big-par[🤔]]
+
+---
+
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Manejo de strings
+
+--
+&lt;br/&gt;
+
+Probablemente en su experiencia programando, con `R` u otro *software*, han .pur[creado] o .pur[manipulado] strings (o cadenas de caracteres) en en alguna ocasión.
+
+--
+
+Una forma sencilla de crear una string es utilizando .pur[comillas] (").
+
+--
+
+.pur[**nota**: al encerrar entre paréntesis el código logramos **asignar** e **imprimir** en una sola línea.]
+
+--
+
+
+```r
+(mi_string &lt;- "hola, soy una string")
+```
+
+```
+## [1] "hola, soy una string"
+```
+
+--
+
+También se pueden crear con .pur[comillas simples] (').
+
+--
+
+
+```r
+(mi_string &lt;- 'hola, yo también soy una string')
+```
+
+```
+## [1] "hola, yo también soy una string"
+```
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Manejo de strings
+
+--
+&lt;br/&gt;
+
+¿Qué pasa si necesitamos usar comillas dentro de una string?
+
+--
+
+
+```r
+(mi_string &lt;- "quiero incluir "comillas" dentro de una string")
+```
+
+```
+## Error: &lt;text&gt;:1:32: unexpected symbol
+## 1: (mi_string &lt;- "quiero incluir "comillas
+##                                    ^
+```
+
+--
+
+Al volver a abrir comillas, `R` entiende que con eso se .pur[cierran las primeras comillas].
+
+--
+
+Por eso es recomendable **reservar** las comillas simples ('') para cuando hay comillas ("") al interior de la string.
+
+--
+
+
+```r
+(mi_string &lt;- 'quiero incluir "comillas" dentro de una string')
+```
+
+```
+## [1] "quiero incluir \"comillas\" dentro de una string"
+```
+--
+
+Si se fijan, el valor .pur[impreso] agrega el símbolo "\" antes de cada comilla.
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Manejo de strings
+
+--
+&lt;br/&gt;
+
+Una secuencia .pur[dentro de una string] que comienza con "\" es llamada .pur[*scape sequence*]. 
+
+--
+
+Avisan a `R` que debe interpretar el input inmediatamente posterior a "\" de otra manera.
+
+--
+
+Podemos directamente ingresar "**\"**" en vez de comilla simple (') y `R` .pur[interpretará] e .pur[imprimirá] lo mismo. 
+
+--
+
+
+```r
+(mi_string &lt;- "quiero incluir \"comillas\" dentro de una string")
+```
+
+```
+## [1] "quiero incluir \"comillas\" dentro de una string"
+```
+
+--
+&lt;br/&gt;
+
+.center[.red[Warning:]Pero 👁️,la representación impresa de una cadena no es equivalente a la cadena misma ..red[Warning:]]
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Manejo de strings
+
+--
+&lt;br/&gt;
+
+La función `writeLines()` muestra las strings como deben ser leídas, independiente de cómo `R` las almacena.
+
+--
+
+
+```r
+writeLines(mi_string)
+```
+
+```
+## quiero incluir "comillas" dentro de una string
+```
+
+--
+
+
+```r
+(mi_string &lt;- "quiero que mi string se \ndespliegue en distintas líneas")
+```
+
+```
+## [1] "quiero que mi string se \ndespliegue en distintas líneas"
+```
+--
+
+
+```r
+writeLines(mi_string)
+```
+
+```
+## quiero que mi string se 
+## despliegue en distintas líneas
+```
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Manejo de strings
+
+--
+
+
+```r
+(mi_string &lt;- "quiero \t agregar \t \"tabs\" \na mi \tstring")
+```
+
+```
+## [1] "quiero \t agregar \t \"tabs\" \na mi \tstring"
+```
+--
+
+
+```r
+writeLines(mi_string)
+```
+
+```
+## quiero 	 agregar 	 "tabs" 
+## a mi 	string
+```
+
+--
+
+Entonces, si quiero obtener un "\" dentro de mi string, debo ingresar "\\\".
+
+--
+
+
+```r
+ejemplo &lt;- c("\"", "\\")
+writeLines(ejemplo)
+```
+
+```
+## "
+## \
+```
+
+--
+
+Ahora, si bien estos símbolos y secuencias permiten .pur[generar strings] con ciertas características.
+
+--
+
+.center[Su mayor utilidad es .medium-par[.pur[rastrear patrones en strings] 🔎]]
+
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Expresiones regulares (regex)
+
+--
+
+Para el manejo de strings pondremos énfasis en las expresiones regulares (o .pur[regex]).
+
+--
+
+una **regex:** es una .pur[secuencia de caracteres que conforma un patrón de búsqueda] ([wikipedia](https://es.wikipedia.org/wiki/Expresi%C3%B3n_regular)).
+
+--
+
+Las .pur[regex] resultan útiles porque permiten describir patrones en ellas a través de un .pur[lenguaje conciso].
+
+--
+
+.red[Warning:] Cuando mires por primera vez una regex te parecerá que un gato caminó sobre tu teclado.
+
+--
+
+.pull-left[![](https://media.giphy.com/media/JuFwy0zPzd6jC/giphy.gif)]
+
+--
+
+.pull-right[![](https://miro.medium.com/max/1200/1*m3wegA5h10b8aM5U64xtSA.png)]
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Expresiones regulares (regex)
+
+--
+&lt;br/&gt;
+
+.medium-par[Pero a medida que vayas ampliando tu conocimiento pronto te empezarán a hacer sentido.]
+
+--
+
+Este es un trozo de una expresión regular que evalúa si una dirección de correo electrónico es válida.
+
+.center[
+&lt;img src="imagenes/regex_email.PNG" width="500" height = 280 /&gt;
+]
+
+fuente: [R para ciencia de datos](https://r4ds.had.co.nz/strings.html)
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Manejo de strings
+
+--
+&lt;br/&gt;
+
+Hadley Wickham llama a lo anterior un **ejemplo patológico** porque las direcciones de correo pueden ser muy complejas.
+
+--
+
+Las herramientas que aprenderemos hoy son .pur[muchísimo más sencillas pero muy potentes].
+
+--
+
+.pull-left[
+
+.medium-par[Para la manipulación de strings utilizaremos una librería parte de `tidyverse`.]
+
+.medium-par[Esta librería se llama `stringr`.]]
+
+--
+
+.pull-right[![](https://stringr.tidyverse.org/logo.png)]
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Manejo de strings con `stringr`
+
+--
+&lt;br/&gt;
+
+`stringr` está construido sobre la base del paquete `stringi`. 
+
+--
+
+`stringi` está diseñado para ser **comprehensivo** (256 funciones).
+
+--
+
+`stringr` contiene una selección .pur[precisa] de las funciones más útiles, lo que lo hace más .pur[conciso] y .pur[consistente] (49 funciones).
+
+--
+
+`stringr` es .pur[compatible con la gramática de `tidyverse`] y presenta .pur[argumentos predeterminados razonables].
+
+--
+
+Si llegaran requerir de más herramientas, vale la pena mirar `stringi`, aunque probablemente la mejor inversión es aprender más sobre **regex**.
+
+--
+
+Algo que facilita rastrear las funciones de `stringr` en `RStudio` es que todas comienzan con "**str_**".
+
+--
+&lt;br/&gt;
+
+.center[
+&lt;img src="imagenes/str_.PNG" width="500" height = 100 /&gt;
+]
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Manejo de strings con `stringr`
+
+--
+&lt;br/&gt;
+
+`stringr` ofrece versiones de algunas funciones que ya conocemos del paquete base.
+
+--
+
+(Para trabajar con `stringr` basta con cargar `tidyverse`.)
+
+--
+
+
+```r
+library(tidyverse)
+frutas = c("mazana", "naranja", "uva", "platano", "pera", NA)
+```
+
+--
+
+Podemos .pur[contar la cantidad de caracteres] dentro de cada string.
+
+--
+
+
+```r
+# con stringr
+str_length(frutas)
+```
+
+```
+## [1]  6  7  3  7  4 NA
+```
+
+```r
+# con R base
+nchar(frutas)
+```
+
+```
+## [1]  6  7  3  7  4 NA
+```
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Manejo de strings con `stringr`
+
+--
+&lt;br/&gt;
+
+`stringr` también tiene su propia versión de `paste()`.
+
+--
+
+
+```r
+# con stringr
+str_c(c("x", "y", "z"), collapse = ", ")
+```
+
+```
+## [1] "x, y, z"
+```
+
+```r
+# o con R base
+paste(c("x", "y", "z"), collapse = ", ")
+```
+
+```
+## [1] "x, y, z"
+```
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Manejo de strings con `stringr`
+
+--
+&lt;br/&gt;
+
+De la mayoría de las funciones de `stringr` que veremos a continuación, .pur[existe una versión en `R` base].
+
+--
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; stringr &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; base &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; str_detect(x, pattern) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; grepl(pattern, x) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; str_sub(x, start, end) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; substr(x, start, end) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; str_length(x) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; nchar(x) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; str_match(x, pattern) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; regexec(pattern, x) + regmatches() &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; str_extract(x, pattern) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; regexpr(pattern, x) + regmatches() &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; str_to_lower(x) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; tolower(x) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; str_to_upper(x) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; toupper(x) &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+--
+
+Escogimos solo algunas de las equivalencias que existen entre `stringr` y `R` base.
+
+--
+
+Para conocer más acerca de `stringr` puedes pinchar [aquí](https://stringr.tidyverse.org/).
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Manejo de strings con `stringr`
+
+--
+&lt;br/&gt;
+
+Veamos algunos ejemplos de usos de las funciones de `stringr`.
+
+--
+
+Podemos .pur[extraer] los números de una dirección.
+
+--
+
+
+```r
+str_extract("Paseo Bulnes 418", pattern = "\\d+")
+```
+
+```
+## [1] "418"
+```
+
+--
+
+O podríamos querer, por el contrario, .pur[remover] los números.
+
+--
+
+
+```r
+direcciones &lt;- c("Avenida Libertador Bernardo O'Higgins 1058" , 
+                 "Calle Morandé 801", "calle Paseo Bulnes 2018")
+
+str_replace(direcciones, pattern = c("\\s\\d+"), replacement = "")
+```
+
+```
+## [1] "Avenida Libertador Bernardo O'Higgins"
+## [2] "Calle Morandé"                        
+## [3] "calle Paseo Bulnes"
+```
+
+--
+
+¿Alguien intuye lo que hace **"\\\s\\\d+"**?
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Manejo de strings con `stringr`
+
+--
+&lt;br/&gt;
+
+O bien.
+
+--
+
+
+```r
+str_extract(direcciones, pattern = "\\D+")
+```
+
+```
+## [1] "Avenida Libertador Bernardo O'Higgins "
+## [2] "Calle Morandé "                        
+## [3] "calle Paseo Bulnes "
+```
+
+--
+
+¿Qué hizo **"\\\D+"**?
+
+--
+
+Quizás .pur[no nos interesa] la denominación de calle o avenida y queremos solo el nombre y número.
+
+--
+
+
+```r
+str_replace(direcciones , pattern = "^\\w+\\s", replacement = "")
+```
+
+```
+## [1] "Libertador Bernardo O'Higgins 1058" "Morandé 801"                       
+## [3] "Paseo Bulnes 2018"
+```
+
+--
+
+¿Qué creen que hace esta regex **"^\\\w+\\\s"**?
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Expresiones regulares (regex)
+
+--
+&lt;br/&gt;
+
+Partamos desde el principio con las .pur[regex].
+
+--
+
+No revisaremos hoy .medium-par[todas] las .pur[regex], porque son .medium-par[.pur[demasiadas]], solo veremos elementos básicos.
+
+
+Para conocer más detalles sobre las .pur[regex] y su uso en `stringr` pueden pinchar [aquí](https://stringr.tidyverse.org/articles/regular-expressions.html).
+
+--
+
+También pueden visitar un recurso en español [aquí](https://rpubs.com/ydmarinb/429756) o [aqui](https://www.diegocalvo.es/expresiones-regulares-en-r/)
+
+--
+
+Echemos un vistazo en este último recurso 👀.
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Expresiones regulares (regex)
+
+--
+
+Volvemos a crear nuestro vector frutas, pero con menos elementos.
+
+--
+
+
+```r
+frutas &lt;- c("mazana", "naranja", "uva", "platano", "pera")
+```
+
+--
+
+Lo más básico es consultar si las strings .pur[contienen] una string completa.
+
+--
+
+
+```r
+str_match(frutas, pattern = "uva")
+```
+
+```
+##      [,1] 
+## [1,] NA   
+## [2,] NA   
+## [3,] "uva"
+## [4,] NA   
+## [5,] NA
+```
+
+--
+
+O si .pur[contienen] un patrón, **en cualquier lugar**.
+
+--
+
+
+```r
+str_view(frutas, pattern = "an")
+```
+
+<div id="htmlwidget-8788bc4e3d3d29c2c320" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8788bc4e3d3d29c2c320">{"x":{"html":"<ul>\n  <li>maz<span class='match'>an<\/span>a<\/li>\n  <li>nar<span class='match'>an<\/span>ja<\/li>\n  <li>uva<\/li>\n  <li>plat<span class='match'>an<\/span>o<\/li>\n  <li>pera<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Expresiones regulares (regex)
+
+--
+
+También podemos rastrear una string con un caracter opcional.
+
+--
+
+
+```r
+nombres = c("maria", "mario", "camilo", "camila")
+str_detect(nombres, pattern = "mari(o|a)")
+```
+
+```
+## [1]  TRUE  TRUE FALSE FALSE
+```
+
+## Anclas
+
+--
+
+Existen dos operadores que anclan una posición.
+
+--
+
+- **^** para buscar la coincidencia al inicio de la cadena.
+- **$** para buscar la coincidencia al final de la cadena.
+
+--
+
+Queremos saber qué nombres parten con "c" y luego los que terminan con "o".
+
+
+```r
+str_detect(nombres, pattern = "^c")
+```
+
+```
+## [1] FALSE FALSE  TRUE  TRUE
+```
+
+```r
+str_detect(nombres, pattern = "o$")
+```
+
+```
+## [1] FALSE  TRUE  TRUE FALSE
+```
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Ejercicio (no tan) express
+
+--
+
+Estas herramientas que hemos visto pueden usarse en conjunto con las que ya conocen de `dplyr` (`filter()`, `mutate()`)
+
+--
+
+Trabajaremos con la base del paquete `guaguas` que ya hemos utilizado anteriormente.
+
+--
+
+
+```r
+library(guaguas)
+```
+
+--
+
+**Ejemplo:** Si queremos detectar y tabular solamente a las personas que en su nombre contienen el patrón "eta", podríamos hacerlo así.
+
+--
+
+
+```r
+guaguas %&gt;% 
+  filter(str_detect(nombre, pattern = "eta")) %&gt;%
+  count(nombre)
+```
+
+```
+## # A tibble: 215 × 2
+##    nombre             n
+##    &lt;chr&gt;          &lt;int&gt;
+##  1 Adrioleta          1
+##  2 Agneta             6
+##  3 Agrieta            1
+##  4 Ahetana            1
+##  5 Alieta             3
+##  6 Amalia-Violeta     1
+##  7 Anacleta          13
+##  8 Anacoreta          2
+##  9 Anceta             1
+## 10 Aneta              1
+## # … with 205 more rows
+```
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Ejercicios (no tan) express
+
+--
+
+Ahora ustedes:
+
+--
+
+1. Tabular los nombres solo de las mujeres que tienen un nombre terminado en "o" nacidas el mismo año que tú.
+
+--
+
+2. Tabular los nombres solo de los hombres que tienen un nombre terminado en "a" nacidos el mismo año que tú.
+
+--
+
+3. Nombres de personas que su nombre termine con "e", con o sin acento, nacidas el mismo año que tú.
+
+--
+
+4. Crea dos nuevas variables en tu dataframe: 
+    - **"first_letters"**, que contenga las s primeras letra de cada nombre y 
+    - **"last_letters"**, que contenga las últimas 2 letras de cada nombre. 
+    
+(👀 esto NO lo hemos visto, revisen la función `str_sub()`)
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Ejercicio (no tan) express: solución
+
+--
+
+(1) Tabular los nombres solo de las mujeres que tienen un nombre terminado en "o".
+
+
+```r
+guaguas %&gt;% 
+  filter(sexo == "F" &amp; anio == 1985 &amp; str_detect(nombre, "o$")) %&gt;%
+  count(nombre)
+```
+
+```
+## # A tibble: 32 × 2
+##    nombre       n
+##    &lt;chr&gt;    &lt;int&gt;
+##  1 Aiko         1
+##  2 Amparito     1
+##  3 Amparo       1
+##  4 Charito      1
+##  5 Cielo        1
+##  6 Consuelo     1
+##  7 Conzuelo     1
+##  8 Fujiko       1
+##  9 Hatsuko      1
+## 10 Io           1
+## # … with 22 more rows
+```
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Ejercicio (no tan) express: solución
+
+
+(2) Tabular los nombres solo de los hombres que tienen un nombre terminado en "a".
+
+
+```r
+guaguas %&gt;% 
+  filter(sexo == "M" &amp; anio == 1985 &amp; str_detect(nombre, "a$")) %&gt;%
+  count(nombre)
+```
+
+```
+## # A tibble: 35 × 2
+##    nombre          n
+##    &lt;chr&gt;       &lt;int&gt;
+##  1 Aliosha         1
+##  2 Andrea          1
+##  3 Bautista        1
+##  4 Bechara         1
+##  5 Borja           1
+##  6 Edrra           1
+##  7 Elena           1
+##  8 Evanjelista     1
+##  9 Gorka           1
+## 10 Haumaka         1
+## # … with 25 more rows
+```
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Ejercicio (no tan) express: solución
+
+(3) Nombres de personas que su nombre termine con "e", con o sin acento.
+
+
+```r
+guaguas %&gt;% 
+  filter(anio == 1985 &amp; str_detect(nombre, "(e|é)$")) %&gt;% 
+  count(nombre)
+```
+
+```
+## # A tibble: 891 × 2
+##    nombre        n
+##    &lt;chr&gt;     &lt;int&gt;
+##  1 Addele        1
+##  2 Aidé          1
+##  3 Aike          1
+##  4 Ailene        1
+##  5 Aine          1
+##  6 Ainohe        1
+##  7 Alcide        1
+##  8 Ale           1
+##  9 Aleide        1
+## 10 Alexandre     1
+## # … with 881 more rows
+```
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Ejercicio (no tan)  express: solución
+
+(4) Crea una nueva variable que contenga la primera letra del nombre.
+
+
+```r
+guaguas &lt;- guaguas %&gt;% 
+  mutate(first_letters = str_sub(nombre, 1, 2),
+         last_letters = str_sub(nombre, -2, -1))
+guaguas %&gt;% select(nombre, first_letters, last_letters) %&gt;% head()
+```
+
+```
+## # A tibble: 6 × 3
+##   nombre first_letters last_letters
+##   &lt;chr&gt;  &lt;chr&gt;         &lt;chr&gt;       
+## 1 María  Ma            ía          
+## 2 José   Jo            sé          
+## 3 Juan   Ju            an          
+## 4 Luis   Lu            is          
+## 5 Rosa   Ro            sa          
+## 6 Ana    An            na
+```
+
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Otras expresiones regulares (regex)
+
+&lt;br/&gt;
+--
+
+Vamos a revisar algunas de las expresiones regulares más utilizadas.
+
+--
+
+Primero intentaremos interpretarlas en base a la .pur[intuición].
+
+--
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; symbol &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; mean &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; \\d &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; [:digit:] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; [0-9] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; \\w &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; [:word:] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; [A-Z] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; [a-z] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; [A-Za-z] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; [:alpha:] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; [aeiou] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; \\s &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; (?i) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Otras expresiones regulares (regex)
+
+--
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; symbol &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; mean &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; a+ &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; a* &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; a? &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; \d{n} &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; a{n,m} &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; a{,m} &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; a{n,} &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; [:punct:] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; [^ab] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; [^0-9] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; \D &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; \W &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; \S &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; ^a &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; a$ &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Otras expresiones regulares (regex)
+
+--
+
+Vamos a revisar algunas de las expresiones regulares más utilizadas
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; symbol &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; mean &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; \\d &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; coincide con números &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; [:digit:] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; coincide con números &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; [0-9] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; coincide con números &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; \\w &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; coincide con letras, números y guiones bajos &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; [:word:] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; coincide con letras, números y guiones bajos &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; [A-Z] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; coincide con letras mayúsculas &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; [a-z] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; coincide con letras minúsculas &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; [A-Za-z] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; coincide con letras mayúsculas y minúsculas &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; [:alpha:] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; coincide con letras mayúsculas y minúsculas &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; [aeiou] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; entre parentesis cuadrados se pueden crear patrones personalizados &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; \\s &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; coincide con espacios &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; \\S &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; distinto de espacios &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; (?i) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; case insensitive &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Otras expresiones regulares (regex)
+
+--
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; symbol &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; mean &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; a+ &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; a al menos una vez &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; a* &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; a cero o más veces &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; a? &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; a cero o una vez (valor opcional) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; \d{n} &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; entre corchetes se indica una cantidad esperada &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; a{n,m} &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; primer valor es mínimo y segundo el máximo &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; a{,m} &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; solo el máximo está definido &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; a{n,} &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; solo el mínimo está definido &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; [:punct:] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; coincide con caracteres de puntuación y símbolos especiales &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; [^ab] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; distinto de a o b &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; [^0-9] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; distinto de número &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; \D &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; distinto de dígito &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; \W &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; distinto de letras, números y guiones bajos &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; \S &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; distinto de espacio &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; ^a &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; a está al principio &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; a$ &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; a está al final &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Hagamos ejercicios con texto libre
+
+--
+
+Vamos a utilizar una interfaz gráfica que interpreta expresiones regulares.
+
+--
+
+.center[
+&lt;img src="imagenes/interfaz-regex.PNG" width="700" height = 300 /&gt;
+]
+
+--
+
+No tiene un intérprete de regex en R, pero .pur[las regex se implementan de forma similar en distintos lenguajes].
+
+--
+
+Para acceder a la interfaz pincha [aquí](https://regex101.com/r/wv8RnO/1).
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Hagamos ejercicios con texto libre
+
+--
+
+Utilizaremos el siguiente texto para explorar:
+
+--
+
+
+```r
+Hoooola, mi nombre es Ignacio, soy sociólogo de formación y trabajo en el INE hace ya algunos años... 
+Mi teléfono es: +569 87622455 /
+Mi correo electrónico del trabajo es &lt;_ifaglonij@ine.gob.cl_&gt; 
+Uno de mis correos personales es: &lt;ignacio.aglonij@gmail.com&gt; 
+Como le pasa a mucha gente, el primer correo electrónico que tuve no era muy serio...&lt;gatoflojo@hotmail.cl&gt;  
+Mi dirección es Paseo Bulnes 418, piso 1. Mmmm, ¿qué más les puedo contar? 
+Estoy haciendo un posgrado (o postgrado, no sé cómo se dice), un master en Tecnologías de la Información en la U de Chile y no doy fe de lo que digo aquí sea verdad... (quizas una que otra cosa sí)
+
+Esto si que es cierto:
+Nro tarjeta de crédito: 6753 9870 8768 8976
+Fecha de vencimiento: 06/25
+Número de seguridad: 896
+```
+
+--
+
+Cópienlo y péguenlo en la interfaz de **regex**.
+
+--
+
+Veamos si funcionan algunas de las **regex** que revisamos.
+
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Hagamos ejercicios con texto libre
+
+--
+
+.pur[.big-par[Ahora ustedes:]]
+
+--
+
+- Detecta el saludo "Hola", independiente de lo coloquial que sea (de la cantidad de "o"). Prueba dos formas de regex.
+
+--
+
+- Capta tanto la palabra "posgrado" como "postgrado". Prueba dos formas de regex.
+
+--
+
+- Detecta la expresión "Mmmm".
+
+--
+
+- Detecta el patrón del número de celular completo.
+
+--
+
+- Valida el patrón de los correos gmail y hotmail.
+
+--
+
+- Valida el patrón de un correo INE (@ine.gob.cl).
+
+--
+
+- Detecta un patrón de número de tarjeta de crédito.
+
+--
+
+- Detecta una fecha de vencimiento de una tarjeta de crédito.
+
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Hagamos ejercicios con texto libre
+
+--
+
+.pur[.big-par[Respuestas:]]
+
+--
+
+- Detecta el saludo "Hola", independiente de lo coloquial que sea (de la cantidad de "o"). Prueba dos formas de regex.
+
+
+```r
+Ho*la | Ho+la
+```
+
+--
+
+- Capta tanto la palabra "posgrado" como "postgrado". Prueba dos formas de regex.
+
+
+```r
+post?grado | po(s|st)grado
+```
+
+--
+
+- Detecta la expresión "Mmmm".
+
+
+```r
+(?i)(Mm)+
+```
+
+--
+
+- Detecta el patrón del número de celular completo.
+
+
+```r
+\+\d{3}\s\d{8}
+```
+
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Hagamos ejercicios con texto libre
+
+--
+
+.pur[.big-par[Respuestas:]]
+
+--
+
+- Valida el patrón de los correos gmail y hotmail.
+
+
+```r
+[a-z]+\@[a-z]+.[a-z]{2,3}
+```
+
+--
+
+- Valida el patrón de un correo INE (@ine.gob.cl).
+
+
+```r
+[a-z]+\@[a-z]{3}.[a-z]{3}.[a-z]{2}
+```
+
+--
+
+- Detecta un patrón de número de tarjeta de crédito.
+
+
+```r
+([0-9]{4}\\s){3}[0-9]{4}
+```
+
+--
+
+- Detecta una fecha de vencimiento de una tarjeta de crédito.
+
+
+```r
+[[:digit:]]{2}\/[[:digit:]]{2} 
+```
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Otras aplicaciones con regex
+
+--
+
+Utilizaremos la base de datos "telefonos".
+
+--
+
+**Nota:** base de datos y ejemplos tomados de charla de Riva Quiroga Steph Orellana en Latin R 2020.
+
+--
+
+
+```r
+library(readr)
+telefonos &lt;- read_csv("data/telefonos.csv")
+```
+
+--
+
+.medium-par-red[¿Qué pueden observar sobre la variable "ciudad"?]
+
+--
+
+
+```r
+telefonos %&gt;% 
+  count(ciudad)
+```
+
+```
+## # A tibble: 9 × 2
+##   ciudad         n
+##   &lt;chr&gt;      &lt;int&gt;
+## 1 La Serena      2
+## 2 Olmué          2
+## 3 quilpue        1
+## 4 quilpué        3
+## 5 Serena         2
+## 6 valparaiso     1
+## 7 Valparaiso     1
+## 8 valparaíso     2
+## 9 Valparaíso     5
+```
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Otras aplicaciones con regex
+
+--
+&lt;br/&gt;
+
+Las ciudades están escritas de distinta manera. Esto es muy propio de los RRAA, cuando las personas ingresan sus propios datos.
+
+--
+
+Para poder captar a todas las observaciones de Quilpué debemos hacer lo siguiente.
+
+--
+
+
+```r
+telefonos %&gt;% 
+  filter(str_detect(ciudad, "quilpu(e|é)"))
+```
+
+```
+## # A tibble: 4 × 3
+##   nombre             ciudad  numero_telefonico
+##   &lt;chr&gt;              &lt;chr&gt;   &lt;chr&gt;            
+## 1 Hernández, Lautaro quilpué 56 964379583     
+## 2 Sanhueza, Pedro    quilpué 56 981408973     
+## 3 Aníbal García      quilpue 982733747        
+## 4 Gómez, Lirayén     quilpué 914257483
+```
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Otras aplicaciones con regex
+
+--
+
+.medium.par[¿Cómo podrías captar a todas las menciones de Valparaiso?]
+
+--
+
+
+```r
+telefonos %&gt;% 
+  filter(str_detect(ciudad, "[V|v]alpara[i|í]so")) %&gt;% 
+  count(ciudad)
+```
+
+```
+## # A tibble: 4 × 2
+##   ciudad         n
+##   &lt;chr&gt;      &lt;int&gt;
+## 1 valparaiso     1
+## 2 Valparaiso     1
+## 3 valparaíso     2
+## 4 Valparaíso     5
+```
+
+--
+
+También observamos que "La Serena" está referido de dos formas diferentes. 
+
+
+
+```r
+telefonos %&gt;% 
+  filter(str_detect(ciudad, "Serena")) %&gt;% 
+  count(ciudad)
+```
+
+```
+## # A tibble: 2 × 2
+##   ciudad        n
+##   &lt;chr&gt;     &lt;int&gt;
+## 1 La Serena     2
+## 2 Serena        2
+```
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Ejercicio express
+
+--
+
+1- .medium-par[¿Cómo lo harían para homologar la ciudad en una variable limpia?]
+
+--
+
+**hint:** pueden usar `case_when()` para crear una variable limpia `ciudad_clean`.
+
+--
+
+2- Como pueden observar, los teléfonos no están en un solo formato.
+
+--
+
+
+```r
+telefonos %&gt;% select(numero_telefonico) %&gt;% head()
+```
+
+```
+## # A tibble: 6 × 1
+##   numero_telefonico
+##   &lt;chr&gt;            
+## 1 +56 981497134    
+## 2 928374591        
+## 3 56 964379583     
+## 4 987654321        
+## 5 +56-983726153    
+## 6 914230795
+```
+  
+Podemos usar las herramientas aprendidas para homologar el formato, eliminando los números que son estandar en una nueva variable `fono_clean`.
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Ejercicio express
+
+--
+
+.pur[.big-par[Respuestas:]]
+
+--
+
+1- Limpieza ciudad.
+
+
+```r
+telefonos = telefonos %&gt;% 
+  mutate(ciudad_clean = case_when(
+    str_detect(ciudad, "[V|v]alpara[i|í]so") ~ "Valparaíso",
+    str_detect(ciudad, "quilpu[e|é]") ~ "Quilpué",
+    str_detect(ciudad,"Serena") ~ "La Serena",
+    TRUE ~ as.character(ciudad)))
+
+telefonos %&gt;% count(ciudad_clean)
+```
+
+```
+## # A tibble: 4 × 2
+##   ciudad_clean     n
+##   &lt;chr&gt;        &lt;int&gt;
+## 1 La Serena        4
+## 2 Olmué            2
+## 3 Quilpué          4
+## 4 Valparaíso       9
+```
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Ejercicio express
+
+--
+
+.pur[.big-par[Respuestas:]]
+
+--
+
+
+2- Limpieza fono.
+
+
+```r
+telefonos = telefonos %&gt;%
+  mutate(fono_clean = str_sub(numero_telefonico, start = -8 , end = -1))
+telefonos %&gt;% 
+  select(numero_telefonico, fono_clean) %&gt;% 
+  head()
+```
+
+```
+## # A tibble: 6 × 2
+##   numero_telefonico fono_clean
+##   &lt;chr&gt;             &lt;chr&gt;     
+## 1 +56 981497134     81497134  
+## 2 928374591         28374591  
+## 3 56 964379583      64379583  
+## 4 987654321         87654321  
+## 5 +56-983726153     83726153  
+## 6 914230795         14230795
+```
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Otras aplicaciones con regex
+
+--
+&lt;br/&gt;
+
+.medium-par[Como pueden ver, las utilidades de las .pur[regex] y de stringr son casi infinitas].
+
+--
+
+.medium-par[Las regex permiten la .pur[automatización] de muchas tareas de .pur[validación y depuración] de datos].
+
+--
+
+.medium-par[Es muy difícil manejar todas las herramientas, lo importante es .pur[entender su lógica y saber buscar]].
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Ejercicio para la 🏠
+
+--
+
+A partir de la base de datos de la encuesta Casen 2020, disponible en la carpeta de la clase de hoy "casen_2020_edit.feather", realice las siguientes tareas
+
+
+```r
+library(feather)
+library(tidyverse)
+
+casen = read_feather("data/casen_2020_edit.feather")
+```
+
+1- Ayudándote de expresiones regulares, y de la manera más suscinta que puedas, selecciona todas las variables de cuestionario de:
+
+    - el módulo de Ocupación
+    - el módulo de vivienda
+
+El output debe ser una tabla solo con las variables de cada módulo, por separado.
+
+**nota:** puedes omitir las variables construidas ex-post en cada módulo.
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Ejercicio para la 🏠
+
+--
+
+2- La tabla "casen_2020_edit.feather" contiene las variables `o9a`, `o9b` y `o24`, que representan, respectivamente, "ocupación", "tareas en la ocupación" y "rama de actividad económica" de las personas que declaran estar ocupadas en el periodo de referencia.
+
+Estas variables son utilizadas como insumo para la codificación automática de los clasificadores de ocupación y rama de actividad económica.
+
+Crea una función que reciba como argumento una variable character y la procese de la siguiente manera:
+    - Pase todos los caracteres de una glosa a minúscula
+    - Remueva todos los signos de puntuación y caracteres especiales
+    - Remueva todos los números
+    - Extraiga espacios adicionales entre palabras
+    - Remueva *stopwords* (para esto pueden usar las librerías `tm`, `quanteda`, entre otras)
+    
+La función debe retornar una variable con glosas procesadas.
+
+No es necesario que evalúes tu función, basta con el código 😁
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Ejercicio para la 🏠
+
+&lt;br/&gt;
+
+--
+
+Las tareas deberán ser entregadas a través de git. En el repositorio de gitlab que hemos estado usando existe una rama llamada tareas, en la cual hay una carpeta para cada clase. Hagan fetch (o pull) de esa rama y empujen sus tareas a la carpeta correspondiente. La estructura del archivo debe ser la siguiente: nombre_apellido1_apellido2.R
+
+La url es la siguiente: https://gitlab.com/inesscc/demostracion_git.git
+
+**Nota: Es deseable que las tareas solo contengan funciones**
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Referencias
+
+.medium-par[Nada de esto sería posible sin:]
+
+- [Tutorial de Stringr](https://stringr.tidyverse.org/)
+
+- [Expresiones regulares en R, Diego Calvo](https://www.diegocalvo.es/expresiones-regulares-en-r/)
+
+- [Expresiones regulares en R, Yubar Marín](https://rpubs.com/ydmarinb/429756)
+
+- [R for Data Science, de Hadley Wickham, , capítulo 14](https://r4ds.had.co.nz/)
+
+- [Advanced R, de Hadley Wickham](http://adv-r.had.co.nz/Introduction.html)
+
+- [Introduction to R, de Data Carpentry](https://datacarpentry.org/R-genomics/01-intro-to-R.html#functions)
+
+- [Xaringan: Presentation Ninja, de Yihui Xie](https://github.com/yihui/xaringan). Para generar esta presentación con la plantilla ninja ⚔
+
+.medium-par[R for Data Science tiene una traducción al español realizada por la comunidad hispana de R:]
+
+- [R para ciencia de datos, de Hadley Wickham, capítulo 14](https://es.r4ds.hadley.nz/)
+
+---
+
+class: center, middle
+
+.linea-superior[]
+.linea-inferior[]
+
+
+&lt;img src="imagenes/logo_portada2.png" width="200" /&gt;
+
+
+## Capacitación en R y herramientas de productividad - nivel intermedio
+
+## Proyecto Estratégico Metodologías y Ciencia de Datos para la Producción Estadística
+
+### Septiembre 2022
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
