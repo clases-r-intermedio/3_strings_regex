@@ -1,0 +1,143 @@
+---
+title: "Solución ejercicios - Sesión 3"
+subtitle: "Capacitación en R y herramientas de productividad - nivel intermedio"
+author: "PE Ciencia de Datos para la Producción Estadística"
+output: pdf_document
+header-includes:
+- \usepackage[fontsize=11.8pt]{scrextend}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Solución ejercicios - Sesión 3
+
+
+```{r, message= F, warning=F}
+library(feather)
+library(dplyr)
+library(stringr)
+library(tm)
+```
+
+A partir de la base de datos de la encuesta Casen 2020, disponible en la carpeta de la clase de hoy `casen_2020_edit.feather`, realiza las siguientes tareas.
+
+## Ejercicio 1
+
+1- Ayudándote de expresiones regulares, y de la manera más suscinta que puedas, selecciona todas las variables de cuestionario de:
+
+- el módulo de Ocupación
+- el módulo de vivienda
+
+```{r, message=F, warning=F, include = F}
+setwd("C:/Users/Ignacio/OneDrive - Instituto Nacional de Estadisticas/PE-CDPE/capacitacion/r-intermedio/3_strings_regex/data")
+casen <- read_feather("casen_2020_edit.feather")
+```
+
+### 1.1 Módulo de Ocupación
+
+Con la ayuda del helper "matches" implementado dentro de select es posible entregarle a la función una expresión regular que ofrezca el patrón requerido.
+
+En el caso de ocupación se puede utilizar la siguiente expresión, que rastrea a todas las variables que comienzan con "o" y que pueden continuar con 1 o 2 dígitos, con "ficio" o con "cup", además de otras variables que comiencen con "rama" o con "activ".
+
+```{r}
+casen_o <- casen %>% 
+  select(matches("^o((\\d{1,2})|ficio|cup)|^rama|^activ"))
+```
+
+Son 36 variables las que componen el módulo de ocupación, entre variables de cuestionario y variables construidas en procesamiento.
+
+```{r}
+length(names(casen_o))
+names(casen_o)
+```
+
+### 1.1 Módulo de Vivienda
+
+En el caso del módulo de vivienda era bastante sencillo. Si bien se puede capturar de forma más estricta el patrón de nombres, para aislar las variables de vivienda en casen solo bastaba con disponer un patrón que detectara nombres que partieran con "v" y contuvieran uno o más números.
+
+Son 19 variables.
+
+```{r}
+casen_v <- casen %>% 
+  select(matches("^v\\d+"))
+```
+
+Son 19 las variables que componen el módulo de vivienda.
+
+```{r}
+length(names(casen_v))
+names(casen_v)
+```
+
+## Ejercicio 2
+
+2- La tabla `casen_2020_edit.feather` contiene las variables o9a, o9b y o24, que representan, respectivamente, "ocupación", "tareas en la ocupación" y "rama de actividad económica" de las personas que declaran estar ocupadas en el periodo de referencia.
+
+Estas variables son utilizadas como insumo para la codificación automática de los clasificadores de ocupación y rama de actividad económica.
+
+Crea una función que reciba como argumento una variable character y la procese de la siguiente manera:
+
+- Pase todos los caracteres de una glosa a minúscula
+- Remueva todos los signos de puntuación y caracteres especiales
+- Remueva todos los números
+- Extraiga espacios adicionales entre palabras
+- Remueva *stopwords* (para esto pueden usar las librerías `tm`, `quanteda`, entre otras)
+La función debe retornar una variable con glosas procesadas.
+
+```{r, eval = F, include = F}
+
+sw_regex = paste(stopwords('es'), collapse = '\\b|\\b')
+sw_regex = paste0('\\b', sw_regex, '\\b')
+
+clean_strings = function(data, svar) {
+  data %>% 
+    mutate('{{svar}}_clean' := str_to_lower({{svar}}),
+           '{{svar}}_clean' := str_replace_all({{svar}}, "[[:punct:]]", ' '),
+           '{{svar}}_clean' := str_replace_all({{svar}}, "\\d", ' '),
+           '{{svar}}_clean' := str_replace_all({{svar}}, sw_regex, ' '),
+           '{{svar}}_clean' := str_trim({{svar}}),
+           '{{svar}}_clean' := str_squish({{svar}}))
+}
+
+```
+
+Existen variadas estrategias para lograr este ejercicio. En este caso se implementó lo siguiente:.
+
+Se tomó el vector de stopwords de la librería `tm`y se ordenaron en un patrón de búsqueda rodeando cada palabra con la expresión `\\b`, que delimita una palabra para que la búsqueda sea estricta.
+
+Luego se creo una función `clean_strings()` que implementa los siguientes pasos solicitados. No es trivial la utilización de `str_replace_all()` en lugar de `str_extract_all()`. Cuando la segunda función extrae los patrones solicitados no deja espacios, pudiendo juntar palabras, lo que crea expresiones que no estaban ahí originalmente. Dado eso, la recomendación es reemplazar los patrones de búsqueda por espacios vacios (" "), y luego con las funciones `str_trim()` y `str_squish()` es posible remover los espacios a principio y al final de la cadena, y dentro de la cadena, respectivamente.
+
+```{r}
+sw_regex = paste(stopwords('es'), collapse = '\\b|\\b')
+sw_regex = paste0('\\b', sw_regex, '\\b')
+
+clean_strings = function(data, svar) {
+  data %>% 
+    mutate('{{svar}}_clean' := str_to_lower({{svar}}) %>% 
+             str_replace_all("[[:punct:]]", ' ') %>% 
+             str_replace_all("\\d", ' ') %>% 
+             str_replace_all(sw_regex, ' ') %>% 
+             str_trim() %>% 
+             str_squish())
+          
+}
+
+```
+
+No era requerido en la tarea, pero podemos evaluar la función en "o9a" para observar su resultado.
+
+```{r}
+casen = casen %>% 
+  clean_strings(o9a)
+casen %>% 
+  filter(o9a!="") %>% 
+  select(starts_with("o9a")) %>% 
+  head()
+
+```
+
+
+
+

@@ -27,8 +27,6 @@ class: center, middle
 
 ## Proyecto Estratégico Metodologías y Ciencia de Datos para la Producción Estadística
 
-### Septiembre 2022
-
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = TRUE)
 knitr::opts_chunk$set(message = FALSE) 
@@ -49,7 +47,7 @@ background-image: url("imagenes/fondo2.PNG")
 background-size: contain;
 background-position: 100% 0%
 
-# Sesión 3: Manejo de strings
+# Manejo de strings
 
 --
 <br/>
@@ -115,7 +113,7 @@ background-position: 100% 0%
 --
 <br/>
 
-Probablemente en su experiencia programando, con `R` u otro *software*, han .pur[creado] o .pur[manipulado] strings (o cadenas de caracteres) en en alguna ocasión.
+Probablemente en su experiencia programando, con `R` u otro *software*, han .pur[creado] o .pur[manipulado] strings (o cadenas de caracteres) en alguna ocasión.
 
 --
 
@@ -529,7 +527,7 @@ O podríamos querer, por el contrario, .pur[remover] los números.
 
 ```{r}
 direcciones <- c("Avenida Libertador Bernardo O'Higgins 1058" , 
-                 "Calle Morandé 801", "calle Paseo Bulnes 2018")
+                 "Calle Morandé 801", "Calle Paseo Bulnes 2018")
 
 str_replace(direcciones, pattern = c("\\s\\d+"), replacement = "")
 ```
@@ -568,6 +566,25 @@ Quizás .pur[no nos interesa] la denominación de calle o avenida y queremos sol
 --
 
 ```{r}
+str_replace(direcciones , pattern = "Calle|Avenida", replacement = "")
+```
+
+
+¿Es robusta esa solución? ¿Qué pasaría si hubiera un "Pasaje"?
+
+---
+
+background-image: url("imagenes/fondo2.PNG")
+background-size: contain;
+background-position: 100% 0%
+
+# Manejo de strings con `stringr`
+
+<br/>
+
+--
+
+```{r}
 str_replace(direcciones , pattern = "^\\w+\\s", replacement = "")
 ```
 
@@ -597,7 +614,7 @@ Para conocer más detalles sobre las .pur[regex] y su uso en `stringr` pueden pi
 
 --
 
-También pueden visitar un recurso en español [aquí](https://rpubs.com/ydmarinb/429756) o [aqui](https://www.diegocalvo.es/expresiones-regulares-en-r/)
+También pueden visitar un recurso en español [aquí](https://rpubs.com/ydmarinb/429756) o [aquí](https://www.diegocalvo.es/expresiones-regulares-en-r/)
 
 --
 
@@ -740,11 +757,20 @@ Ahora ustedes:
 
 --
 
-4. Crea dos nuevas variables en tu dataframe: 
-    - **"first_letters"**, que contenga las s primeras letra de cada nombre y 
-    - **"last_letters"**, que contenga las últimas 2 letras de cada nombre. 
+4.1 Primero, separa la base guaguas en una lista que contenga un data frame para cada año (anio).
+
+--
+
+4.2 Construye una función que cree dos nuevas variables en un data frame:
+
+**"first_letters"**, que contenga las primeras 2 letras de cada nombre y 
+**"last_letters"**, que contenga las últimas 2 letras de cada nombre. 
     
 (👀 esto NO lo hemos visto, revisen la función `str_sub()`)
+
+--
+
+4.3 Recorre la lista de data frames por año aplicando tu función.
 
 ---
 
@@ -805,13 +831,32 @@ background-position: 100% 0%
 
 # Ejercicio (no tan)  express: solución
 
-(4) Crea una nueva variable que contenga la primera letra del nombre.
+--
+
+4.1 Primero, separa la base guaguas en una lista que contenga un data frame para cada año (anio).
 
 ```{r}
-guaguas <- guaguas %>% 
-  mutate(first_letters = str_sub(nombre, 1, 2),
-         last_letters = str_sub(nombre, -2, -1))
-guaguas %>% select(nombre, first_letters, last_letters) %>% head()
+list_anio = split(guaguas,  guaguas$anio)
+```
+
+--
+
+4.2 Construye una función que cree dos nuevas variables en un data frame:
+
+```{r}
+create_first_last = function(df, var){
+  df %>% 
+    mutate(first_letters = str_sub({{var}}, 1, 2),
+           last_letters = str_sub({{var}}, -2, -1))
+}
+```
+
+--
+
+4.3 Recorre la lista de data frames por año aplicando tu función.
+
+```{r}
+map(list_anio, create_first_last, nombre)
 ```
 
 
@@ -953,7 +998,7 @@ Utilizaremos el siguiente texto para explorar:
 ```{r, eval = F}
 Hoooola, mi nombre es Ignacio, soy sociólogo de formación y trabajo en el INE hace ya algunos años... 
 Mi teléfono es: +569 87622455 /
-Mi correo electrónico del trabajo es <_ifaglonij@ine.gob.cl_> 
+Mi correo electrónico del trabajo es <ifaglonij@ine.gob.cl> 
 Uno de mis correos personales es: <ignacio.aglonij@gmail.com> 
 Como le pasa a mucha gente, el primer correo electrónico que tuve no era muy serio...<gatoflojo@hotmail.cl>  
 Mi dirección es Paseo Bulnes 418, piso 1. Mmmm, ¿qué más les puedo contar? 
@@ -1036,7 +1081,7 @@ background-position: 100% 0%
 - Detecta el saludo "Hola", independiente de lo coloquial que sea (de la cantidad de "o"). Prueba dos formas de regex.
 
 ```{r, eval = F}
-Ho*la | Ho+la
+Ho+la | Ho*la 
 ```
 
 --
@@ -1052,7 +1097,7 @@ post?grado | po(s|st)grado
 - Detecta la expresión "Mmmm".
 
 ```{r, eval = F}
-(?i)(Mm)+
+(?i)(Mm+)
 ```
 
 --
@@ -1081,7 +1126,7 @@ background-position: 100% 0%
 - Valida el patrón de los correos gmail y hotmail.
 
 ```{r, eval = F}
-[a-z]+\@[a-z]+.[a-z]{2,3}
+\w+\.?\w+\@\w+.\w{2,3}
 ```
 
 --
@@ -1097,7 +1142,7 @@ background-position: 100% 0%
 - Detecta un patrón de número de tarjeta de crédito.
 
 ```{r, eval = F}
-([0-9]{4}\\s){3}[0-9]{4}
+([0-9]{4}\s){3}[0-9]{4}
 ```
 
 --
@@ -1105,7 +1150,7 @@ background-position: 100% 0%
 - Detecta una fecha de vencimiento de una tarjeta de crédito.
 
 ```{r, eval = F}
-[[:digit:]]{2}\/[[:digit:]]{2} 
+[0-9]{2}/[0-9]{2}
 ```
 
 ---
@@ -1182,7 +1227,7 @@ background-position: 100% 0%
 
 ```{r}
 telefonos %>% 
-  filter(str_detect(ciudad, "[V|v]alpara[i|í]so")) %>% 
+  filter(str_detect(ciudad, "(?i)valpara[i|í]so")) %>% 
   count(ciudad)
 ```
 
@@ -1245,7 +1290,7 @@ background-position: 100% 0%
 ```{r}
 telefonos = telefonos %>% 
   mutate(ciudad_clean = case_when(
-    str_detect(ciudad, "[V|v]alpara[i|í]so") ~ "Valparaíso",
+    str_detect(ciudad, "(?i)valpara[i|í]so") ~ "Valparaíso",
     str_detect(ciudad, "quilpu[e|é]") ~ "Quilpué",
     str_detect(ciudad,"Serena") ~ "La Serena",
     TRUE ~ as.character(ciudad)))
@@ -1366,7 +1411,7 @@ background-position: 100% 0%
 
 Las tareas deberán ser entregadas a través de git. En el repositorio de gitlab que hemos estado usando existe una rama llamada tareas, en la cual hay una carpeta para cada clase. Hagan fetch (o pull) de esa rama y empujen sus tareas a la carpeta correspondiente. La estructura del archivo debe ser la siguiente: nombre_apellido1_apellido2.R
 
-La url es la siguiente: https://gitlab.com/inesscc/demostracion_git.git
+La url es la siguiente: https://gitlab.com/inesscc/demostracion_git_curso.git
 
 **Nota: Es deseable que las tareas solo contengan funciones**
 
@@ -1413,4 +1458,3 @@ class: center, middle
 
 ## Proyecto Estratégico Metodologías y Ciencia de Datos para la Producción Estadística
 
-### Septiembre 2022
