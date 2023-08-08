@@ -25,7 +25,9 @@ class: center, middle
 
 ## Capacitación en R y herramientas de productividad - nivel intermedio
 
-## Proyecto Estratégico Metodologías y Ciencia de Datos para la Producción Estadística
+## Proyecto Ciencia de Datos
+
+## Strings y Regex
 
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = TRUE)
@@ -205,7 +207,7 @@ Podemos directamente ingresar "**\"**" en vez de comilla simple (') y `R` .pur[i
 --
 <br/>
 
-.center[.red[Warning:]Pero 👁️,la representación impresa de una cadena no es equivalente a la cadena misma ..red[Warning:]]
+.center[.red[Warning: ]Pero 👁️,la representación impresa de una cadena no es equivalente a la cadena misma ..red[Warning]]
 
 ---
 
@@ -630,7 +632,7 @@ background-position: 100% 0%
 
 --
 
-Volvemos a crear nuestro vector frutas, pero con menos elementos.
+Volvemos a crear nuestro vector frutas.
 
 --
 
@@ -1456,5 +1458,7 @@ class: center, middle
 
 ## Capacitación en R y herramientas de productividad - nivel intermedio
 
-## Proyecto Estratégico Metodologías y Ciencia de Datos para la Producción Estadística
+## Proyecto Ciencia de Datos
+
+## Strings y Regex
 
