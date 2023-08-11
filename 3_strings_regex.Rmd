@@ -1413,7 +1413,7 @@ background-position: 100% 0%
 
 Las tareas deberán ser entregadas a través de git. En el repositorio de gitlab que hemos estado usando existe una rama llamada tareas, en la cual hay una carpeta para cada clase. Hagan fetch (o pull) de esa rama y empujen sus tareas a la carpeta correspondiente. La estructura del archivo debe ser la siguiente: nombre_apellido1_apellido2.R
 
-La url es la siguiente: https://gitlab.com/inesscc/demostracion_git_curso.git
+La url es la siguiente: https://github.com/clase-git/clase-curso-bulnes2
 
 **Nota: Es deseable que las tareas solo contengan funciones**
 
