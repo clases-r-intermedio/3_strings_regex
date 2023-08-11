@@ -4,11 +4,8 @@
     <title>Capacitación en R y herramientas de productividad - nivel intermedio</title>
     <meta charset="utf-8" />
     <meta name="author" content="" />
-    <meta name="date" content="2022-12-28" />
-    <script src="3_strings_regex_files/header-attrs-2.14/header-attrs.js"></script>
-    <script src="3_strings_regex_files/htmlwidgets-1.5.4/htmlwidgets.js"></script>
-    <link href="3_strings_regex_files/str_view-0.1.0/str_view.css" rel="stylesheet" />
-    <script src="3_strings_regex_files/str_view-binding-1.4.0/str_view.js"></script>
+    <meta name="date" content="2023-08-08" />
+    <script src="3_strings_regex_files/header-attrs-2.19/header-attrs.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
   <body>
@@ -26,7 +23,9 @@ class: center, middle
 
 ## Capacitación en R y herramientas de productividad - nivel intermedio
 
-## Proyecto Estratégico Metodologías y Ciencia de Datos para la Producción Estadística
+## Proyecto Ciencia de Datos
+
+## Strings y Regex
 
 
 
@@ -802,8 +801,11 @@ O si .pur[contienen] un patrón, **en cualquier lugar**.
 str_view(frutas, pattern = "an")
 ```
 
-<div id="htmlwidget-31ce0ab7782accacf81d" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-31ce0ab7782accacf81d">{"x":{"html":"<ul>\n  <li>maz<span class='match'>an<\/span>a<\/li>\n  <li>nar<span class='match'>an<\/span>ja<\/li>\n  <li>uva<\/li>\n  <li>plat<span class='match'>an<\/span>o<\/li>\n  <li>pera<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+```
+## [1] | maz&lt;an&gt;a
+## [2] | nar&lt;an&gt;ja
+## [4] | plat&lt;an&gt;o
+```
 
 ---
 
@@ -898,7 +900,7 @@ guaguas %&gt;%
 ```
 
 ```
-## # A tibble: 215 × 2
+## # A tibble: 215 x 2
 ##    nombre             n
 ##    &lt;chr&gt;          &lt;int&gt;
 ##  1 Adrioleta          1
@@ -911,7 +913,7 @@ guaguas %&gt;%
 ##  8 Anacoreta          2
 ##  9 Anceta             1
 ## 10 Aneta              1
-## # … with 205 more rows
+## # i 205 more rows
 ```
 
 ---
@@ -975,7 +977,7 @@ guaguas %&gt;%
 ```
 
 ```
-## # A tibble: 32 × 2
+## # A tibble: 32 x 2
 ##    nombre       n
 ##    &lt;chr&gt;    &lt;int&gt;
 ##  1 Aiko         1
@@ -988,7 +990,7 @@ guaguas %&gt;%
 ##  8 Fujiko       1
 ##  9 Hatsuko      1
 ## 10 Io           1
-## # … with 22 more rows
+## # i 22 more rows
 ```
 
 ---
@@ -1010,7 +1012,7 @@ guaguas %&gt;%
 ```
 
 ```
-## # A tibble: 35 × 2
+## # A tibble: 35 x 2
 ##    nombre          n
 ##    &lt;chr&gt;       &lt;int&gt;
 ##  1 Aliosha         1
@@ -1023,7 +1025,7 @@ guaguas %&gt;%
 ##  8 Evanjelista     1
 ##  9 Gorka           1
 ## 10 Haumaka         1
-## # … with 25 more rows
+## # i 25 more rows
 ```
 
 ---
@@ -1044,7 +1046,7 @@ guaguas %&gt;%
 ```
 
 ```
-## # A tibble: 891 × 2
+## # A tibble: 891 x 2
 ##    nombre        n
 ##    &lt;chr&gt;     &lt;int&gt;
 ##  1 Addele        1
@@ -1057,7 +1059,7 @@ guaguas %&gt;%
 ##  8 Ale           1
 ##  9 Aleide        1
 ## 10 Alexandre     1
-## # … with 881 more rows
+## # i 881 more rows
 ```
 
 ---
@@ -1101,7 +1103,7 @@ map(list_anio, create_first_last, nombre)
 
 ```
 ## $`1920`
-## # A tibble: 2,028 × 7
+## # A tibble: 2,028 x 7
 ##     anio nombre sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1920 María  F      2130     0.104  Ma            ía          
@@ -1114,10 +1116,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1920 Olga   F       289     0.0142 Ol            ga          
 ##  9  1920 Carlos M       277     0.0136 Ca            os          
 ## 10  1920 Pedro  M       269     0.0132 Pe            ro          
-## # … with 2,018 more rows
+## # i 2,018 more rows
 ## 
 ## $`1921`
-## # A tibble: 3,094 × 7
+## # A tibble: 3,094 x 7
 ##     anio nombre sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1921 María  F      4262     0.0924 Ma            ía          
@@ -1130,10 +1132,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1921 Ana    F       699     0.0151 An            na          
 ##  9  1921 Pedro  M       680     0.0147 Pe            ro          
 ## 10  1921 Juana  F       561     0.0122 Ju            na          
-## # … with 3,084 more rows
+## # i 3,084 more rows
 ## 
 ## $`1922`
-## # A tibble: 3,241 × 7
+## # A tibble: 3,241 x 7
 ##     anio nombre sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1922 María  F      4358     0.0896 Ma            ía          
@@ -1146,10 +1148,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1922 Carlos M       744     0.0153 Ca            os          
 ##  9  1922 Pedro  M       671     0.0138 Pe            ro          
 ## 10  1922 Juana  F       601     0.0124 Ju            na          
-## # … with 3,231 more rows
+## # i 3,231 more rows
 ## 
 ## $`1923`
-## # A tibble: 3,344 × 7
+## # A tibble: 3,344 x 7
 ##     anio nombre sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1923 María  F      4386     0.0866 Ma            ía          
@@ -1162,10 +1164,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1923 Ana    F       693     0.0137 An            na          
 ##  9  1923 Pedro  M       685     0.0135 Pe            ro          
 ## 10  1923 Olga   F       581     0.0115 Ol            ga          
-## # … with 3,334 more rows
+## # i 3,334 more rows
 ## 
 ## $`1924`
-## # A tibble: 3,526 × 7
+## # A tibble: 3,526 x 7
 ##     anio nombre sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1924 María  F      4799     0.0867 Ma            ía          
@@ -1178,10 +1180,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1924 Ana    F       782     0.0141 An            na          
 ##  9  1924 Pedro  M       752     0.0136 Pe            ro          
 ## 10  1924 Juana  F       647     0.0117 Ju            na          
-## # … with 3,516 more rows
+## # i 3,516 more rows
 ## 
 ## $`1925`
-## # A tibble: 3,544 × 7
+## # A tibble: 3,544 x 7
 ##     anio nombre sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1925 María  F      4822     0.0836 Ma            ía          
@@ -1194,10 +1196,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1925 Ana    F       810     0.0140 An            na          
 ##  9  1925 Pedro  M       778     0.0135 Pe            ro          
 ## 10  1925 Juana  F       679     0.0118 Ju            na          
-## # … with 3,534 more rows
+## # i 3,534 more rows
 ## 
 ## $`1926`
-## # A tibble: 3,649 × 7
+## # A tibble: 3,649 x 7
 ##     anio nombre sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1926 María  F      5015     0.0820 Ma            ía          
@@ -1210,10 +1212,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1926 Pedro  M       854     0.0140 Pe            ro          
 ##  9  1926 Ana    F       850     0.0139 An            na          
 ## 10  1926 Juana  F       694     0.0113 Ju            na          
-## # … with 3,639 more rows
+## # i 3,639 more rows
 ## 
 ## $`1927`
-## # A tibble: 3,902 × 7
+## # A tibble: 3,902 x 7
 ##     anio nombre sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1927 María  F      5503     0.0779 Ma            ía          
@@ -1226,10 +1228,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1927 Ana    F       989     0.0140 An            na          
 ##  9  1927 Pedro  M       980     0.0139 Pe            ro          
 ## 10  1927 Juana  F       815     0.0115 Ju            na          
-## # … with 3,892 more rows
+## # i 3,892 more rows
 ## 
 ## $`1928`
-## # A tibble: 4,511 × 7
+## # A tibble: 4,511 x 7
 ##     anio nombre sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1928 María  F      7579     0.0799 Ma            ía          
@@ -1242,10 +1244,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1928 Pedro  M      1367     0.0144 Pe            ro          
 ##  9  1928 Ana    F      1335     0.0141 An            na          
 ## 10  1928 Juana  F      1143     0.0120 Ju            na          
-## # … with 4,501 more rows
+## # i 4,501 more rows
 ## 
 ## $`1929`
-## # A tibble: 4,531 × 7
+## # A tibble: 4,531 x 7
 ##     anio nombre sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1929 María  F      7001     0.0766 Ma            ía          
@@ -1258,10 +1260,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1929 Pedro  M      1328     0.0145 Pe            ro          
 ##  9  1929 Ana    F      1238     0.0135 An            na          
 ## 10  1929 Juana  F      1076     0.0118 Ju            na          
-## # … with 4,521 more rows
+## # i 4,521 more rows
 ## 
 ## $`1930`
-## # A tibble: 4,667 × 7
+## # A tibble: 4,667 x 7
 ##     anio nombre sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1930 María  F      6979     0.0748 Ma            ía          
@@ -1274,10 +1276,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1930 Pedro  M      1286     0.0138 Pe            ro          
 ##  9  1930 Ana    F      1217     0.0130 An            na          
 ## 10  1930 Juana  F      1017     0.0109 Ju            na          
-## # … with 4,657 more rows
+## # i 4,657 more rows
 ## 
 ## $`1931`
-## # A tibble: 4,376 × 7
+## # A tibble: 4,376 x 7
 ##     anio nombre sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1931 María  F      6128     0.0735 Ma            ía          
@@ -1290,10 +1292,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1931 Ana    F      1184     0.0142 An            na          
 ##  9  1931 Pedro  M      1099     0.0132 Pe            ro          
 ## 10  1931 Jorge  M      1039     0.0125 Jo            ge          
-## # … with 4,366 more rows
+## # i 4,366 more rows
 ## 
 ## $`1932`
-## # A tibble: 4,460 × 7
+## # A tibble: 4,460 x 7
 ##     anio nombre sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1932 María  F      5941     0.0726 Ma            ía          
@@ -1306,10 +1308,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1932 Ana    F      1101     0.0135 An            na          
 ##  9  1932 Jorge  M      1072     0.0131 Jo            ge          
 ## 10  1932 Pedro  M      1054     0.0129 Pe            ro          
-## # … with 4,450 more rows
+## # i 4,450 more rows
 ## 
 ## $`1933`
-## # A tibble: 4,516 × 7
+## # A tibble: 4,516 x 7
 ##     anio nombre sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1933 María  F      5732     0.0707 Ma            ía          
@@ -1322,10 +1324,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1933 Ana    F      1072     0.0132 An            na          
 ##  9  1933 Pedro  M      1064     0.0131 Pe            ro          
 ## 10  1933 Jorge  M      1002     0.0124 Jo            ge          
-## # … with 4,506 more rows
+## # i 4,506 more rows
 ## 
 ## $`1934`
-## # A tibble: 4,647 × 7
+## # A tibble: 4,647 x 7
 ##     anio nombre sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1934 María  F      6038     0.0721 Ma            ía          
@@ -1338,10 +1340,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1934 Ana    F      1143     0.0136 An            na          
 ##  9  1934 Pedro  M      1027     0.0123 Pe            ro          
 ## 10  1934 Jorge  M      1014     0.0121 Jo            ge          
-## # … with 4,637 more rows
+## # i 4,637 more rows
 ## 
 ## $`1935`
-## # A tibble: 4,766 × 7
+## # A tibble: 4,766 x 7
 ##     anio nombre sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1935 María  F      6187     0.0707 Ma            ía          
@@ -1354,10 +1356,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1935 Ana    F      1191     0.0136 An            na          
 ##  9  1935 Pedro  M      1089     0.0124 Pe            ro          
 ## 10  1935 Jorge  M      1066     0.0122 Jo            ge          
-## # … with 4,756 more rows
+## # i 4,756 more rows
 ## 
 ## $`1936`
-## # A tibble: 4,853 × 7
+## # A tibble: 4,853 x 7
 ##     anio nombre sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1936 María  F      6562     0.0721 Ma            ía          
@@ -1370,10 +1372,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1936 Ana    F      1250     0.0137 An            na          
 ##  9  1936 Pedro  M      1156     0.0127 Pe            ro          
 ## 10  1936 Jorge  M      1155     0.0127 Jo            ge          
-## # … with 4,843 more rows
+## # i 4,843 more rows
 ## 
 ## $`1937`
-## # A tibble: 5,039 × 7
+## # A tibble: 5,039 x 7
 ##     anio nombre sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1937 María  F      6888     0.0710 Ma            ía          
@@ -1386,10 +1388,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1937 Ana    F      1256     0.0129 An            na          
 ##  9  1937 Jorge  M      1228     0.0127 Jo            ge          
 ## 10  1937 Pedro  M      1177     0.0121 Pe            ro          
-## # … with 5,029 more rows
+## # i 5,029 more rows
 ## 
 ## $`1938`
-## # A tibble: 5,008 × 7
+## # A tibble: 5,008 x 7
 ##     anio nombre sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1938 María  F      7183     0.0718 Ma            ía          
@@ -1402,10 +1404,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1938 Pedro  M      1381     0.0138 Pe            ro          
 ##  9  1938 Ana    F      1378     0.0138 An            na          
 ## 10  1938 Jorge  M      1268     0.0127 Jo            ge          
-## # … with 4,998 more rows
+## # i 4,998 more rows
 ## 
 ## $`1939`
-## # A tibble: 5,403 × 7
+## # A tibble: 5,403 x 7
 ##     anio nombre sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1939 María  F      8653     0.0752 Ma            ía          
@@ -1418,10 +1420,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1939 Pedro  M      1647     0.0143 Pe            ro          
 ##  9  1939 Ana    F      1560     0.0136 An            na          
 ## 10  1939 Jorge  M      1393     0.0121 Jo            ge          
-## # … with 5,393 more rows
+## # i 5,393 more rows
 ## 
 ## $`1940`
-## # A tibble: 5,672 × 7
+## # A tibble: 5,672 x 7
 ##     anio nombre sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1940 María  F      9385     0.0742 Ma            ía          
@@ -1434,10 +1436,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1940 Pedro  M      1778     0.0141 Pe            ro          
 ##  9  1940 Ana    F      1754     0.0139 An            na          
 ## 10  1940 Jorge  M      1606     0.0127 Jo            ge          
-## # … with 5,662 more rows
+## # i 5,662 more rows
 ## 
 ## $`1941`
-## # A tibble: 5,744 × 7
+## # A tibble: 5,744 x 7
 ##     anio nombre sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1941 María  F     10013     0.0751 Ma            ía          
@@ -1450,10 +1452,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1941 Ana    F      1912     0.0143 An            na          
 ##  9  1941 Pedro  M      1783     0.0134 Pe            ro          
 ## 10  1941 Jorge  M      1668     0.0125 Jo            ge          
-## # … with 5,734 more rows
+## # i 5,734 more rows
 ## 
 ## $`1942`
-## # A tibble: 5,886 × 7
+## # A tibble: 5,886 x 7
 ##     anio nombre sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1942 María  F     11435     0.0786 Ma            ía          
@@ -1466,10 +1468,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1942 Ana    F      2106     0.0145 An            na          
 ##  9  1942 Pedro  M      1863     0.0128 Pe            ro          
 ## 10  1942 Jorge  M      1847     0.0127 Jo            ge          
-## # … with 5,876 more rows
+## # i 5,876 more rows
 ## 
 ## $`1943`
-## # A tibble: 5,759 × 7
+## # A tibble: 5,759 x 7
 ##     anio nombre sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1943 María  F     11945     0.0802 Ma            ía          
@@ -1482,10 +1484,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1943 Ana    F      2213     0.0149 An            na          
 ##  9  1943 Pedro  M      1961     0.0132 Pe            ro          
 ## 10  1943 Jorge  M      1901     0.0128 Jo            ge          
-## # … with 5,749 more rows
+## # i 5,749 more rows
 ## 
 ## $`1944`
-## # A tibble: 5,882 × 7
+## # A tibble: 5,882 x 7
 ##     anio nombre sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1944 María  F     12373     0.0805 Ma            ía          
@@ -1498,10 +1500,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1944 Ana    F      2398     0.0156 An            na          
 ##  9  1944 Jorge  M      2015     0.0131 Jo            ge          
 ## 10  1944 Pedro  M      2008     0.0131 Pe            ro          
-## # … with 5,872 more rows
+## # i 5,872 more rows
 ## 
 ## $`1945`
-## # A tibble: 5,802 × 7
+## # A tibble: 5,802 x 7
 ##     anio nombre sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1945 María  F     12969     0.0819 Ma            ía          
@@ -1514,10 +1516,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1945 Ana    F      2419     0.0153 An            na          
 ##  9  1945 Jorge  M      2188     0.0138 Jo            ge          
 ## 10  1945 Pedro  M      2004     0.0127 Pe            ro          
-## # … with 5,792 more rows
+## # i 5,792 more rows
 ## 
 ## $`1946`
-## # A tibble: 5,872 × 7
+## # A tibble: 5,872 x 7
 ##     anio nombre sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1946 María  F     13411     0.0834 Ma            ía          
@@ -1530,10 +1532,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1946 Ana    F      2683     0.0167 An            na          
 ##  9  1946 Jorge  M      2280     0.0142 Jo            ge          
 ## 10  1946 Pedro  M      2011     0.0125 Pe            ro          
-## # … with 5,862 more rows
+## # i 5,862 more rows
 ## 
 ## $`1947`
-## # A tibble: 6,191 × 7
+## # A tibble: 6,191 x 7
 ##     anio nombre sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1947 María  F     14529     0.0843 Ma            ía          
@@ -1546,10 +1548,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1947 Ana    F      2917     0.0169 An            na          
 ##  9  1947 Jorge  M      2384     0.0138 Jo            ge          
 ## 10  1947 Pedro  M      2229     0.0129 Pe            ro          
-## # … with 6,181 more rows
+## # i 6,181 more rows
 ## 
 ## $`1948`
-## # A tibble: 6,121 × 7
+## # A tibble: 6,121 x 7
 ##     anio nombre sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1948 María  F     15631     0.0880 Ma            ía          
@@ -1562,10 +1564,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1948 Ana    F      2971     0.0167 An            na          
 ##  9  1948 Jorge  M      2470     0.0139 Jo            ge          
 ## 10  1948 Pedro  M      2316     0.0130 Pe            ro          
-## # … with 6,111 more rows
+## # i 6,111 more rows
 ## 
 ## $`1949`
-## # A tibble: 6,136 × 7
+## # A tibble: 6,136 x 7
 ##     anio nombre sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1949 María  F     15269     0.0860 Ma            ía          
@@ -1578,10 +1580,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1949 Manuel M      3069     0.0173 Ma            el          
 ##  9  1949 Jorge  M      2526     0.0142 Jo            ge          
 ## 10  1949 Pedro  M      2265     0.0128 Pe            ro          
-## # … with 6,126 more rows
+## # i 6,126 more rows
 ## 
 ## $`1950`
-## # A tibble: 6,075 × 7
+## # A tibble: 6,075 x 7
 ##     anio nombre sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1950 María  F     15023     0.0859 Ma            ía          
@@ -1594,10 +1596,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1950 Manuel M      2915     0.0167 Ma            el          
 ##  9  1950 Jorge  M      2485     0.0142 Jo            ge          
 ## 10  1950 Pedro  M      2259     0.0129 Pe            ro          
-## # … with 6,065 more rows
+## # i 6,065 more rows
 ## 
 ## $`1951`
-## # A tibble: 6,130 × 7
+## # A tibble: 6,130 x 7
 ##     anio nombre sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1951 María  F     15522     0.0865 Ma            ía          
@@ -1610,10 +1612,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1951 Manuel M      2980     0.0166 Ma            el          
 ##  9  1951 Jorge  M      2589     0.0144 Jo            ge          
 ## 10  1951 Pedro  M      2329     0.0130 Pe            ro          
-## # … with 6,120 more rows
+## # i 6,120 more rows
 ## 
 ## $`1952`
-## # A tibble: 6,300 × 7
+## # A tibble: 6,300 x 7
 ##     anio nombre sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1952 María  F     16580     0.0873 Ma            ía          
@@ -1626,10 +1628,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1952 Manuel M      3101     0.0163 Ma            el          
 ##  9  1952 Jorge  M      2643     0.0139 Jo            ge          
 ## 10  1952 Pedro  M      2433     0.0128 Pe            ro          
-## # … with 6,290 more rows
+## # i 6,290 more rows
 ## 
 ## $`1953`
-## # A tibble: 6,890 × 7
+## # A tibble: 6,890 x 7
 ##     anio nombre sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1953 María  F     19566     0.0869 Ma            ía          
@@ -1642,10 +1644,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1953 Manuel M      3691     0.0164 Ma            el          
 ##  9  1953 Jorge  M      3371     0.0150 Jo            ge          
 ## 10  1953 Pedro  M      2852     0.0127 Pe            ro          
-## # … with 6,880 more rows
+## # i 6,880 more rows
 ## 
 ## $`1954`
-## # A tibble: 7,158 × 7
+## # A tibble: 7,158 x 7
 ##     anio nombre sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1954 María  F     20172     0.0854 Ma            ía          
@@ -1658,10 +1660,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1954 Manuel M      3896     0.0165 Ma            el          
 ##  9  1954 Jorge  M      3646     0.0154 Jo            ge          
 ## 10  1954 Pedro  M      2940     0.0124 Pe            ro          
-## # … with 7,148 more rows
+## # i 7,148 more rows
 ## 
 ## $`1955`
-## # A tibble: 7,309 × 7
+## # A tibble: 7,309 x 7
 ##     anio nombre sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1955 María  F     21448     0.0851 Ma            ía          
@@ -1674,10 +1676,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1955 Manuel M      4105     0.0163 Ma            el          
 ##  9  1955 Jorge  M      4026     0.0160 Jo            ge          
 ## 10  1955 Pedro  M      3165     0.0126 Pe            ro          
-## # … with 7,299 more rows
+## # i 7,299 more rows
 ## 
 ## $`1956`
-## # A tibble: 7,499 × 7
+## # A tibble: 7,499 x 7
 ##     anio nombre sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1956 María  F     21013     0.0826 Ma            ía          
@@ -1690,10 +1692,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1956 Jorge  M      4248     0.0167 Jo            ge          
 ##  9  1956 Manuel M      3911     0.0154 Ma            el          
 ## 10  1956 Pedro  M      3136     0.0123 Pe            ro          
-## # … with 7,489 more rows
+## # i 7,489 more rows
 ## 
 ## $`1957`
-## # A tibble: 7,326 × 7
+## # A tibble: 7,326 x 7
 ##     anio nombre   sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1957 María    F     20154     0.0799 Ma            ía          
@@ -1706,10 +1708,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1957 Jorge    M      4469     0.0177 Jo            ge          
 ##  9  1957 Manuel   M      3976     0.0158 Ma            el          
 ## 10  1957 Patricia F      3112     0.0123 Pa            ia          
-## # … with 7,316 more rows
+## # i 7,316 more rows
 ## 
 ## $`1958`
-## # A tibble: 7,406 × 7
+## # A tibble: 7,406 x 7
 ##     anio nombre   sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1958 María    F     19593     0.0778 Ma            ía          
@@ -1722,10 +1724,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1958 Ana      F      4749     0.0188 An            na          
 ##  9  1958 Manuel   M      3721     0.0148 Ma            el          
 ## 10  1958 Patricia F      3149     0.0125 Pa            ia          
-## # … with 7,396 more rows
+## # i 7,396 more rows
 ## 
 ## $`1959`
-## # A tibble: 7,585 × 7
+## # A tibble: 7,585 x 7
 ##     anio nombre   sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1959 María    F     19701     0.0756 Ma            ía          
@@ -1738,10 +1740,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1959 Ana      F      4812     0.0185 An            na          
 ##  9  1959 Manuel   M      3806     0.0146 Ma            el          
 ## 10  1959 Patricia F      3490     0.0134 Pa            ia          
-## # … with 7,575 more rows
+## # i 7,575 more rows
 ## 
 ## $`1960`
-## # A tibble: 7,556 × 7
+## # A tibble: 7,556 x 7
 ##     anio nombre   sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1960 María    F     19581     0.0743 Ma            ía          
@@ -1754,10 +1756,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1960 Ana      F      4641     0.0176 An            na          
 ##  9  1960 Manuel   M      3805     0.0144 Ma            el          
 ## 10  1960 Patricia F      3493     0.0133 Pa            ia          
-## # … with 7,546 more rows
+## # i 7,546 more rows
 ## 
 ## $`1961`
-## # A tibble: 7,663 × 7
+## # A tibble: 7,663 x 7
 ##     anio nombre   sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1961 María    F     19244     0.0711 Ma            ía          
@@ -1770,10 +1772,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1961 Ana      F      4719     0.0174 An            na          
 ##  9  1961 Manuel   M      3757     0.0139 Ma            el          
 ## 10  1961 Patricia F      3601     0.0133 Pa            ia          
-## # … with 7,653 more rows
+## # i 7,653 more rows
 ## 
 ## $`1962`
-## # A tibble: 7,825 × 7
+## # A tibble: 7,825 x 7
 ##     anio nombre   sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1962 María    F     19862     0.0703 Ma            ía          
@@ -1786,10 +1788,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1962 Ana      F      4799     0.0170 An            na          
 ##  9  1962 Manuel   M      3776     0.0134 Ma            el          
 ## 10  1962 Patricia F      3531     0.0125 Pa            ia          
-## # … with 7,815 more rows
+## # i 7,815 more rows
 ## 
 ## $`1963`
-## # A tibble: 7,892 × 7
+## # A tibble: 7,892 x 7
 ##     anio nombre   sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1963 María    F     19135     0.0670 Ma            ía          
@@ -1802,10 +1804,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1963 Rosa     F      4657     0.0163 Ro            sa          
 ##  9  1963 Manuel   M      3777     0.0132 Ma            el          
 ## 10  1963 Patricia F      3511     0.0123 Pa            ia          
-## # … with 7,882 more rows
+## # i 7,882 more rows
 ## 
 ## $`1964`
-## # A tibble: 7,910 × 7
+## # A tibble: 7,910 x 7
 ##     anio nombre   sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1964 María    F     18845     0.0648 Ma            ía          
@@ -1818,10 +1820,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1964 Jorge    M      4717     0.0162 Jo            ge          
 ##  9  1964 Manuel   M      3694     0.0127 Ma            el          
 ## 10  1964 Patricia F      3432     0.0118 Pa            ia          
-## # … with 7,900 more rows
+## # i 7,900 more rows
 ## 
 ## $`1965`
-## # A tibble: 8,356 × 7
+## # A tibble: 8,356 x 7
 ##     anio nombre   sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1965 María    F     20382     0.0638 Ma            ía          
@@ -1834,10 +1836,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1965 Rosa     F      4936     0.0155 Ro            sa          
 ##  9  1965 Manuel   M      4099     0.0128 Ma            el          
 ## 10  1965 Patricia F      3680     0.0115 Pa            ia          
-## # … with 8,346 more rows
+## # i 8,346 more rows
 ## 
 ## $`1966`
-## # A tibble: 8,415 × 7
+## # A tibble: 8,415 x 7
 ##     anio nombre sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1966 María  F     19182     0.0600 Ma            ía          
@@ -1850,10 +1852,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1966 Ana    F      4808     0.0150 An            na          
 ##  9  1966 Manuel M      4124     0.0129 Ma            el          
 ## 10  1966 Víctor M      3542     0.0111 Ví            or          
-## # … with 8,405 more rows
+## # i 8,405 more rows
 ## 
 ## $`1967`
-## # A tibble: 8,325 × 7
+## # A tibble: 8,325 x 7
 ##     anio nombre sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1967 María  F     17584     0.0574 Ma            ía          
@@ -1866,10 +1868,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1967 Ana    F      4414     0.0144 An            na          
 ##  9  1967 Manuel M      3718     0.0121 Ma            el          
 ## 10  1967 Sandra F      3637     0.0119 Sa            ra          
-## # … with 8,315 more rows
+## # i 8,315 more rows
 ## 
 ## $`1968`
-## # A tibble: 8,285 × 7
+## # A tibble: 8,285 x 7
 ##     anio nombre sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1968 María  F     16561     0.0556 Ma            ía          
@@ -1882,10 +1884,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1968 Rosa   F      4073     0.0137 Ro            sa          
 ##  9  1968 Ana    F      3994     0.0134 An            na          
 ## 10  1968 Manuel M      3522     0.0118 Ma            el          
-## # … with 8,275 more rows
+## # i 8,275 more rows
 ## 
 ## $`1969`
-## # A tibble: 8,079 × 7
+## # A tibble: 8,079 x 7
 ##     anio nombre  sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1969 María   F     15014     0.0525 Ma            ía          
@@ -1898,10 +1900,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1969 Sandra  F      3835     0.0134 Sa            ra          
 ##  9  1969 Rosa    F      3677     0.0128 Ro            sa          
 ## 10  1969 Claudia F      3617     0.0126 Cl            ia          
-## # … with 8,069 more rows
+## # i 8,069 more rows
 ## 
 ## $`1970`
-## # A tibble: 8,231 × 7
+## # A tibble: 8,231 x 7
 ##     anio nombre  sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1970 María   F     14098     0.0494 Ma            ía          
@@ -1914,10 +1916,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1970 Ana     F      3613     0.0127 An            na          
 ##  9  1970 Rosa    F      3561     0.0125 Ro            sa          
 ## 10  1970 Sandra  F      3506     0.0123 Sa            ra          
-## # … with 8,221 more rows
+## # i 8,221 more rows
 ## 
 ## $`1971`
-## # A tibble: 8,775 × 7
+## # A tibble: 8,775 x 7
 ##     anio nombre  sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1971 María   F     15687     0.0490 Ma            ía          
@@ -1930,10 +1932,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1971 Jorge   M      4315     0.0135 Jo            ge          
 ##  9  1971 Ana     F      4190     0.0131 An            na          
 ## 10  1971 Rosa    F      4109     0.0128 Ro            sa          
-## # … with 8,765 more rows
+## # i 8,765 more rows
 ## 
 ## $`1972`
-## # A tibble: 8,803 × 7
+## # A tibble: 8,803 x 7
 ##     anio nombre   sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1972 María    F     14889     0.0469 Ma            ía          
@@ -1946,10 +1948,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1972 Cristian M      4158     0.0131 Cr            an          
 ##  9  1972 Jorge    M      4049     0.0127 Jo            ge          
 ## 10  1972 Ana      F      4030     0.0127 An            na          
-## # … with 8,793 more rows
+## # i 8,793 more rows
 ## 
 ## $`1973`
-## # A tibble: 8,913 × 7
+## # A tibble: 8,913 x 7
 ##     anio nombre   sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1973 María    F     14086     0.0446 Ma            ía          
@@ -1962,10 +1964,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1973 Jorge    M      4060     0.0129 Jo            ge          
 ##  9  1973 Rosa     F      3717     0.0118 Ro            sa          
 ## 10  1973 Ana      F      3658     0.0116 An            na          
-## # … with 8,903 more rows
+## # i 8,903 more rows
 ## 
 ## $`1974`
-## # A tibble: 8,592 × 7
+## # A tibble: 8,592 x 7
 ##     anio nombre   sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1974 María    F     12515     0.0408 Ma            ía          
@@ -1978,10 +1980,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1974 Rodrigo  M      4407     0.0144 Ro            go          
 ##  9  1974 Jorge    M      3892     0.0127 Jo            ge          
 ## 10  1974 Sandra   F      3586     0.0117 Sa            ra          
-## # … with 8,582 more rows
+## # i 8,582 more rows
 ## 
 ## $`1975`
-## # A tibble: 8,377 × 7
+## # A tibble: 8,377 x 7
 ##     anio nombre   sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1975 María    F     11456     0.0391 Ma            ía          
@@ -1994,10 +1996,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1975 Rodrigo  M      4363     0.0149 Ro            go          
 ##  9  1975 Jorge    M      3800     0.0130 Jo            ge          
 ## 10  1975 Claudio  M      3297     0.0113 Cl            io          
-## # … with 8,367 more rows
+## # i 8,367 more rows
 ## 
 ## $`1976`
-## # A tibble: 8,541 × 7
+## # A tibble: 8,541 x 7
 ##     anio nombre   sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1976 María    F     10454     0.0379 Ma            ía          
@@ -2010,10 +2012,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1976 Rodrigo  M      4269     0.0155 Ro            go          
 ##  9  1976 Jorge    M      3533     0.0128 Jo            ge          
 ## 10  1976 Carolina F      3484     0.0126 Ca            na          
-## # … with 8,531 more rows
+## # i 8,531 more rows
 ## 
 ## $`1977`
-## # A tibble: 8,309 × 7
+## # A tibble: 8,309 x 7
 ##     anio nombre   sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1977 María    F      9854     0.0374 Ma            ía          
@@ -2026,10 +2028,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1977 Rodrigo  M      3983     0.0151 Ro            go          
 ##  9  1977 Carolina F      3876     0.0147 Ca            na          
 ## 10  1977 Jorge    M      3436     0.0130 Jo            ge          
-## # … with 8,299 more rows
+## # i 8,299 more rows
 ## 
 ## $`1978`
-## # A tibble: 8,254 × 7
+## # A tibble: 8,254 x 7
 ##     anio nombre   sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1978 María    F     10024     0.0384 Ma            ía          
@@ -2042,10 +2044,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1978 Rodrigo  M      3974     0.0152 Ro            go          
 ##  9  1978 Claudia  F      3804     0.0146 Cl            ia          
 ## 10  1978 Jorge    M      3289     0.0126 Jo            ge          
-## # … with 8,244 more rows
+## # i 8,244 more rows
 ## 
 ## $`1979`
-## # A tibble: 8,626 × 7
+## # A tibble: 8,626 x 7
 ##     anio nombre   sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1979 María    F     10173     0.0376 Ma            ía          
@@ -2058,10 +2060,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1979 Rodrigo  M      4407     0.0163 Ro            go          
 ##  9  1979 Jorge    M      3839     0.0142 Jo            ge          
 ## 10  1979 Claudia  F      3690     0.0136 Cl            ia          
-## # … with 8,616 more rows
+## # i 8,616 more rows
 ## 
 ## $`1980`
-## # A tibble: 8,958 × 7
+## # A tibble: 8,958 x 7
 ##     anio nombre   sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1980 María    F     10382     0.0365 Ma            ía          
@@ -2074,10 +2076,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1980 Carlos   M      4505     0.0158 Ca            os          
 ##  9  1980 Claudia  F      4095     0.0144 Cl            ia          
 ## 10  1980 Jorge    M      3953     0.0139 Jo            ge          
-## # … with 8,948 more rows
+## # i 8,948 more rows
 ## 
 ## $`1981`
-## # A tibble: 9,534 × 7
+## # A tibble: 9,534 x 7
 ##     anio nombre   sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1981 María    F     12563     0.0396 Ma            ía          
@@ -2090,10 +2092,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1981 Carlos   M      5016     0.0158 Ca            os          
 ##  9  1981 Claudia  F      4424     0.0139 Cl            ia          
 ## 10  1981 Jorge    M      4186     0.0132 Jo            ge          
-## # … with 9,524 more rows
+## # i 9,524 more rows
 ## 
 ## $`1982`
-## # A tibble: 9,869 × 7
+## # A tibble: 9,869 x 7
 ##     anio nombre   sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1982 María    F     12169     0.0372 Ma            ía          
@@ -2106,10 +2108,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1982 Rodrigo  M      4928     0.0151 Ro            go          
 ##  9  1982 Claudia  F      4388     0.0134 Cl            ia          
 ## 10  1982 Jorge    M      4273     0.0131 Jo            ge          
-## # … with 9,859 more rows
+## # i 9,859 more rows
 ## 
 ## $`1983`
-## # A tibble: 9,832 × 7
+## # A tibble: 9,832 x 7
 ##     anio nombre   sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1983 María    F     11609     0.0366 Ma            ía          
@@ -2122,10 +2124,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1983 Rodrigo  M      4604     0.0145 Ro            go          
 ##  9  1983 Jorge    M      3947     0.0125 Jo            ge          
 ## 10  1983 Claudia  F      3697     0.0117 Cl            ia          
-## # … with 9,822 more rows
+## # i 9,822 more rows
 ## 
 ## $`1984`
-## # A tibble: 8,748 × 7
+## # A tibble: 8,748 x 7
 ##     anio nombre   sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1984 María    F      8804     0.0319 Ma            ía          
@@ -2138,10 +2140,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1984 Daniela  F      3876     0.0140 Da            la          
 ##  9  1984 Rodrigo  M      3796     0.0137 Ro            go          
 ## 10  1984 Jorge    M      3388     0.0123 Jo            ge          
-## # … with 8,738 more rows
+## # i 8,738 more rows
 ## 
 ## $`1985`
-## # A tibble: 8,965 × 7
+## # A tibble: 8,965 x 7
 ##     anio nombre   sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1985 María    F      8537     0.0322 Ma            ía          
@@ -2154,10 +2156,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1985 Carlos   M      3883     0.0146 Ca            os          
 ##  9  1985 Daniela  F      3774     0.0142 Da            la          
 ## 10  1985 Rodrigo  M      3449     0.0130 Ro            go          
-## # … with 8,955 more rows
+## # i 8,955 more rows
 ## 
 ## $`1986`
-## # A tibble: 9,721 × 7
+## # A tibble: 9,721 x 7
 ##     anio nombre    sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1986 María     F      8181     0.0299 Ma            ía          
@@ -2170,10 +2172,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1986 Carlos    M      3879     0.0142 Ca            os          
 ##  9  1986 Francisco M      3815     0.0139 Fr            co          
 ## 10  1986 Felipe    M      3418     0.0125 Fe            pe          
-## # … with 9,711 more rows
+## # i 9,711 more rows
 ## 
 ## $`1987`
-## # A tibble: 10,019 × 7
+## # A tibble: 10,019 x 7
 ##     anio nombre    sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1987 María     F      8693     0.0312 Ma            ía          
@@ -2186,10 +2188,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1987 Carolina  F      3814     0.0137 Ca            na          
 ##  9  1987 Carlos    M      3686     0.0132 Ca            os          
 ## 10  1987 Felipe    M      3638     0.0131 Fe            pe          
-## # … with 10,009 more rows
+## # i 10,009 more rows
 ## 
 ## $`1988`
-## # A tibble: 10,815 × 7
+## # A tibble: 10,815 x 7
 ##     anio nombre    sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1988 María     F      8450     0.0285 Ma            ía          
@@ -2202,10 +2204,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1988 Felipe    M      3745     0.0126 Fe            pe          
 ##  9  1988 Carlos    M      3712     0.0125 Ca            os          
 ## 10  1988 Carolina  F      3683     0.0124 Ca            na          
-## # … with 10,805 more rows
+## # i 10,805 more rows
 ## 
 ## $`1989`
-## # A tibble: 11,283 × 7
+## # A tibble: 11,283 x 7
 ##     anio nombre    sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1989 María     F      8383     0.0277 Ma            ía          
@@ -2218,10 +2220,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1989 Sebastián M      4068     0.0135 Se            án          
 ##  9  1989 Felipe    M      3923     0.0130 Fe            pe          
 ## 10  1989 Carlos    M      3788     0.0125 Ca            os          
-## # … with 11,273 more rows
+## # i 11,273 more rows
 ## 
 ## $`1990`
-## # A tibble: 11,495 × 7
+## # A tibble: 11,495 x 7
 ##     anio nombre    sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1990 María     F      8086     0.0262 Ma            ía          
@@ -2234,10 +2236,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1990 Nicole    F      4478     0.0145 Ni            le          
 ##  9  1990 Francisco M      4468     0.0145 Fr            co          
 ## 10  1990 Carlos    M      4089     0.0133 Ca            os          
-## # … with 11,485 more rows
+## # i 11,485 more rows
 ## 
 ## $`1991`
-## # A tibble: 11,452 × 7
+## # A tibble: 11,452 x 7
 ##     anio nombre    sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1991 María     F      7889     0.0262 Ma            ía          
@@ -2250,10 +2252,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1991 Luis      M      4312     0.0143 Lu            is          
 ##  9  1991 Felipe    M      4286     0.0142 Fe            pe          
 ## 10  1991 Francisco M      3974     0.0132 Fr            co          
-## # … with 11,442 more rows
+## # i 11,442 more rows
 ## 
 ## $`1992`
-## # A tibble: 11,488 × 7
+## # A tibble: 11,488 x 7
 ##     anio nombre    sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1992 María     F      7716     0.0260 Ma            ía          
@@ -2266,10 +2268,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1992 Sebastián M      4145     0.0140 Se            án          
 ##  9  1992 Daniela   F      4144     0.0140 Da            la          
 ## 10  1992 Francisco M      3698     0.0125 Fr            co          
-## # … with 11,478 more rows
+## # i 11,478 more rows
 ## 
 ## $`1993`
-## # A tibble: 11,607 × 7
+## # A tibble: 11,607 x 7
 ##     anio nombre    sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1993 María     F      7330     0.0250 Ma            ía          
@@ -2282,10 +2284,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1993 Luis      M      4224     0.0144 Lu            is          
 ##  9  1993 Nicolás   M      4180     0.0143 Ni            ás          
 ## 10  1993 Sebastián M      3943     0.0135 Se            án          
-## # … with 11,597 more rows
+## # i 11,597 more rows
 ## 
 ## $`1994`
-## # A tibble: 11,588 × 7
+## # A tibble: 11,588 x 7
 ##     anio nombre    sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1994 Camila    F      9233     0.0319 Ca            la          
@@ -2298,10 +2300,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1994 Nicolás   M      4169     0.0144 Ni            ás          
 ##  9  1994 Constanza F      3999     0.0138 Co            za          
 ## 10  1994 Diego     M      3918     0.0135 Di            go          
-## # … with 11,578 more rows
+## # i 11,578 more rows
 ## 
 ## $`1995`
-## # A tibble: 11,114 × 7
+## # A tibble: 11,114 x 7
 ##     anio nombre    sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1995 Camila    F      9004     0.0321 Ca            la          
@@ -2314,10 +2316,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1995 Daniela   F      3904     0.0139 Da            la          
 ##  9  1995 Constanza F      3873     0.0138 Co            za          
 ## 10  1995 Luis      M      3805     0.0136 Lu            is          
-## # … with 11,104 more rows
+## # i 11,104 more rows
 ## 
 ## $`1996`
-## # A tibble: 11,201 × 7
+## # A tibble: 11,201 x 7
 ##     anio nombre    sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1996 Camila    F      8175     0.0293 Ca            la          
@@ -2330,10 +2332,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1996 Felipe    M      4073     0.0146 Fe            pe          
 ##  9  1996 Constanza F      3709     0.0133 Co            za          
 ## 10  1996 Diego     M      3683     0.0132 Di            go          
-## # … with 11,191 more rows
+## # i 11,191 more rows
 ## 
 ## $`1997`
-## # A tibble: 11,260 × 7
+## # A tibble: 11,260 x 7
 ##     anio nombre    sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1997 Camila    F      7122     0.0262 Ca            la          
@@ -2346,10 +2348,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1997 Felipe    M      4107     0.0151 Fe            pe          
 ##  9  1997 Francisca F      4090     0.0151 Fr            ca          
 ## 10  1997 Constanza F      3946     0.0145 Co            za          
-## # … with 11,250 more rows
+## # i 11,250 more rows
 ## 
 ## $`1998`
-## # A tibble: 11,346 × 7
+## # A tibble: 11,346 x 7
 ##     anio nombre    sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1998 Javiera   F      7473     0.0281 Ja            ra          
@@ -2362,10 +2364,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1998 Diego     M      4295     0.0161 Di            go          
 ##  9  1998 José      M      4184     0.0157 Jo            sé          
 ## 10  1998 Francisca F      3872     0.0145 Fr            ca          
-## # … with 11,336 more rows
+## # i 11,336 more rows
 ## 
 ## $`1999`
-## # A tibble: 11,375 × 7
+## # A tibble: 11,375 x 7
 ##     anio nombre    sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  1999 Javiera   F      6765     0.0262 Ja            ra          
@@ -2378,10 +2380,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  1999 Valentina F      4203     0.0163 Va            na          
 ##  9  1999 Diego     M      4046     0.0157 Di            go          
 ## 10  1999 José      M      3611     0.0140 Jo            sé          
-## # … with 11,365 more rows
+## # i 11,365 more rows
 ## 
 ## $`2000`
-## # A tibble: 11,437 × 7
+## # A tibble: 11,437 x 7
 ##     anio nombre    sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  2000 Javiera   F      6430     0.0254 Ja            ra          
@@ -2394,10 +2396,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  2000 Diego     M      4435     0.0175 Di            go          
 ##  9  2000 Valentina F      4069     0.0160 Va            na          
 ## 10  2000 José      M      3337     0.0132 Jo            sé          
-## # … with 11,427 more rows
+## # i 11,427 more rows
 ## 
 ## $`2001`
-## # A tibble: 11,688 × 7
+## # A tibble: 11,688 x 7
 ##     anio nombre    sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  2001 Javiera   F      5343     0.0212 Ja            ra          
@@ -2410,10 +2412,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  2001 Diego     M      4113     0.0163 Di            go          
 ##  9  2001 Camila    F      4032     0.0160 Ca            la          
 ## 10  2001 Constanza F      3848     0.0153 Co            za          
-## # … with 11,678 more rows
+## # i 11,678 more rows
 ## 
 ## $`2002`
-## # A tibble: 11,665 × 7
+## # A tibble: 11,665 x 7
 ##     anio nombre    sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  2002 Matías    M      5317     0.0219 Ma            as          
@@ -2426,10 +2428,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  2002 Valentina F      3827     0.0157 Va            na          
 ##  9  2002 Diego     M      3785     0.0156 Di            go          
 ## 10  2002 Nicolás   M      3685     0.0152 Ni            ás          
-## # … with 11,655 more rows
+## # i 11,655 more rows
 ## 
 ## $`2003`
-## # A tibble: 11,813 × 7
+## # A tibble: 11,813 x 7
 ##     anio nombre    sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  2003 Benjamín  M      6776     0.0284 Be            ín          
@@ -2442,10 +2444,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  2003 Diego     M      3618     0.0152 Di            go          
 ##  9  2003 Sebastián M      3512     0.0147 Se            án          
 ## 10  2003 Fernanda  F      3240     0.0136 Fe            da          
-## # … with 11,803 more rows
+## # i 11,803 more rows
 ## 
 ## $`2004`
-## # A tibble: 11,586 × 7
+## # A tibble: 11,586 x 7
 ##     anio nombre    sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  2004 Benjamín  M      7594     0.0326 Be            ín          
@@ -2458,10 +2460,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  2004 Diego     M      3314     0.0142 Di            go          
 ##  9  2004 Sebastián M      3285     0.0141 Se            án          
 ## 10  2004 Vicente   M      3107     0.0133 Vi            te          
-## # … with 11,576 more rows
+## # i 11,576 more rows
 ## 
 ## $`2005`
-## # A tibble: 11,718 × 7
+## # A tibble: 11,718 x 7
 ##     anio nombre    sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  2005 Benjamín  M      7117     0.0306 Be            ín          
@@ -2474,10 +2476,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  2005 Martina   F      3648     0.0157 Ma            na          
 ##  9  2005 Diego     M      3081     0.0132 Di            go          
 ## 10  2005 Martín    M      3038     0.0130 Ma            ín          
-## # … with 11,708 more rows
+## # i 11,708 more rows
 ## 
 ## $`2006`
-## # A tibble: 12,058 × 7
+## # A tibble: 12,058 x 7
 ##     anio nombre    sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  2006 Benjamín  M      5290     0.0227 Be            ín          
@@ -2490,10 +2492,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  2006 Javiera   F      3486     0.0150 Ja            ra          
 ##  9  2006 Antonia   F      3049     0.0131 An            ia          
 ## 10  2006 Matías    M      2929     0.0126 Ma            as          
-## # … with 12,048 more rows
+## # i 12,048 more rows
 ## 
 ## $`2007`
-## # A tibble: 11,979 × 7
+## # A tibble: 11,979 x 7
 ##     anio nombre    sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  2007 Benjamín  M      8347     0.0345 Be            ín          
@@ -2506,10 +2508,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  2007 Valentina F      3866     0.0160 Va            na          
 ##  9  2007 Constanza F      3647     0.0151 Co            za          
 ## 10  2007 Antonia   F      3545     0.0147 An            ia          
-## # … with 11,969 more rows
+## # i 11,969 more rows
 ## 
 ## $`2008`
-## # A tibble: 12,253 × 7
+## # A tibble: 12,253 x 7
 ##     anio nombre    sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  2008 Benjamín  M      7751     0.0312 Be            ín          
@@ -2522,10 +2524,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  2008 Catalina  F      3604     0.0145 Ca            na          
 ##  9  2008 Antonia   F      3598     0.0145 An            ia          
 ## 10  2008 Valentina F      3502     0.0141 Va            na          
-## # … with 12,243 more rows
+## # i 12,243 more rows
 ## 
 ## $`2009`
-## # A tibble: 12,222 × 7
+## # A tibble: 12,222 x 7
 ##     anio nombre    sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  2009 Benjamín  M      7005     0.0277 Be            ín          
@@ -2538,10 +2540,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  2009 Antonia   F      3626     0.0143 An            ia          
 ##  9  2009 Joaquín   M      3378     0.0133 Jo            ín          
 ## 10  2009 Antonella F      3329     0.0131 An            la          
-## # … with 12,212 more rows
+## # i 12,212 more rows
 ## 
 ## $`2010`
-## # A tibble: 11,934 × 7
+## # A tibble: 11,934 x 7
 ##     anio nombre    sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  2010 Benjamín  M      6021     0.0240 Be            ín          
@@ -2554,10 +2556,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  2010 Valentina F      3592     0.0143 Va            na          
 ##  9  2010 Isidora   F      3434     0.0137 Is            ra          
 ## 10  2010 Joaquín   M      3290     0.0131 Jo            ín          
-## # … with 11,924 more rows
+## # i 11,924 more rows
 ## 
 ## $`2011`
-## # A tibble: 11,719 × 7
+## # A tibble: 11,719 x 7
 ##     anio nombre    sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  2011 Benjamín  M      5471     0.0220 Be            ín          
@@ -2570,10 +2572,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  2011 Matías    M      3751     0.0151 Ma            as          
 ##  9  2011 Agustín   M      3493     0.0140 Ag            ín          
 ## 10  2011 Emilia    F      3424     0.0138 Em            ia          
-## # … with 11,709 more rows
+## # i 11,709 more rows
 ## 
 ## $`2012`
-## # A tibble: 11,595 × 7
+## # A tibble: 11,595 x 7
 ##     anio nombre    sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  2012 Agustín   M      6347     0.0260 Ag            ín          
@@ -2586,10 +2588,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  2012 Florencia F      3517     0.0144 Fl            ia          
 ##  9  2012 Isidora   F      3451     0.0141 Is            ra          
 ## 10  2012 Martina   F      3419     0.0140 Ma            na          
-## # … with 11,585 more rows
+## # i 11,585 more rows
 ## 
 ## $`2013`
-## # A tibble: 11,198 × 7
+## # A tibble: 11,198 x 7
 ##     anio nombre    sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  2013 Agustín   M      6517     0.0268 Ag            ín          
@@ -2602,10 +2604,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  2013 Antonella F      3428     0.0141 An            la          
 ##  9  2013 Martina   F      3374     0.0139 Ma            na          
 ## 10  2013 Matías    M      3209     0.0132 Ma            as          
-## # … with 11,188 more rows
+## # i 11,188 more rows
 ## 
 ## $`2014`
-## # A tibble: 11,564 × 7
+## # A tibble: 11,564 x 7
 ##     anio nombre    sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  2014 Agustín   M      5903     0.0234 Ag            ín          
@@ -2618,10 +2620,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  2014 Florencia F      3491     0.0138 Fl            ia          
 ##  9  2014 Matías    M      3135     0.0124 Ma            as          
 ## 10  2014 Mateo     M      3095     0.0123 Ma            eo          
-## # … with 11,554 more rows
+## # i 11,554 more rows
 ## 
 ## $`2015`
-## # A tibble: 11,294 × 7
+## # A tibble: 11,294 x 7
 ##     anio nombre    sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  2015 Agustín   M      5355     0.0218 Ag            ín          
@@ -2634,10 +2636,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  2015 Martín    M      3370     0.0137 Ma            ín          
 ##  9  2015 Florencia F      3346     0.0136 Fl            ia          
 ## 10  2015 Alonso    M      3222     0.0131 Al            so          
-## # … with 11,284 more rows
+## # i 11,284 more rows
 ## 
 ## $`2016`
-## # A tibble: 11,348 × 7
+## # A tibble: 11,348 x 7
 ##     anio nombre    sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  2016 Agustín   M      4300     0.0185 Ag            ín          
@@ -2650,10 +2652,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  2016 Joaquín   M      3110     0.0134 Jo            ín          
 ##  9  2016 Florencia F      3045     0.0131 Fl            ia          
 ## 10  2016 Martín    M      2866     0.0123 Ma            ín          
-## # … with 11,338 more rows
+## # i 11,338 more rows
 ## 
 ## $`2017`
-## # A tibble: 12,462 × 7
+## # A tibble: 12,462 x 7
 ##     anio nombre    sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  2017 Mateo     M      4736     0.0216 Ma            eo          
@@ -2666,10 +2668,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  2017 Benjamín  M      2758     0.0126 Be            ín          
 ##  9  2017 Vicente   M      2715     0.0124 Vi            te          
 ## 10  2017 Florencia F      2698     0.0123 Fl            ia          
-## # … with 12,452 more rows
+## # i 12,452 more rows
 ## 
 ## $`2018`
-## # A tibble: 15,697 × 7
+## # A tibble: 15,697 x 7
 ##     anio nombre   sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  2018 Mateo    M      4468     0.0201 Ma            eo          
@@ -2682,10 +2684,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  2018 Santiago M      2684     0.0121 Sa            go          
 ##  9  2018 Isidora  F      2656     0.0119 Is            ra          
 ## 10  2018 Benjamín M      2459     0.0110 Be            ín          
-## # … with 15,687 more rows
+## # i 15,687 more rows
 ## 
 ## $`2019`
-## # A tibble: 15,041 × 7
+## # A tibble: 15,041 x 7
 ##     anio nombre   sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  2019 Mateo    M      4152     0.0196 Ma            eo          
@@ -2698,10 +2700,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  2019 Tomás    M      2570     0.0122 To            ás          
 ##  9  2019 Benjamín M      2537     0.0120 Be            ín          
 ## 10  2019 Lucas    M      2468     0.0117 Lu            as          
-## # … with 15,031 more rows
+## # i 15,031 more rows
 ## 
 ## $`2020`
-## # A tibble: 14,001 × 7
+## # A tibble: 14,001 x 7
 ##     anio nombre   sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  2020 Mateo    M      3866     0.0198 Ma            eo          
@@ -2714,10 +2716,10 @@ map(list_anio, create_first_last, nombre)
 ##  8  2020 Benjamín M      2218     0.0114 Be            ín          
 ##  9  2020 Tomás    M      2186     0.0112 To            ás          
 ## 10  2020 Lucas    M      2146     0.0110 Lu            as          
-## # … with 13,991 more rows
+## # i 13,991 more rows
 ## 
 ## $`2021`
-## # A tibble: 13,265 × 7
+## # A tibble: 13,265 x 7
 ##     anio nombre   sexo      n proporcion first_letters last_letters
 ##    &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       
 ##  1  2021 Mateo    M      3267     0.0184 Ma            eo          
@@ -2730,7 +2732,7 @@ map(list_anio, create_first_last, nombre)
 ##  8  2021 Benjamín M      1935     0.0109 Be            ín          
 ##  9  2021 Agustina F      1816     0.0102 Ag            na          
 ## 10  2021 Santiago M      1809     0.0102 Sa            go          
-## # … with 13,255 more rows
+## # i 13,255 more rows
 ```
 
 
@@ -3293,18 +3295,18 @@ telefonos %&gt;%
 ```
 
 ```
-## # A tibble: 9 × 2
+## # A tibble: 9 x 2
 ##   ciudad         n
 ##   &lt;chr&gt;      &lt;int&gt;
 ## 1 La Serena      2
 ## 2 Olmué          2
-## 3 quilpue        1
-## 4 quilpué        3
-## 5 Serena         2
-## 6 valparaiso     1
-## 7 Valparaiso     1
-## 8 valparaíso     2
-## 9 Valparaíso     5
+## 3 Serena         2
+## 4 Valparaiso     1
+## 5 Valparaíso     5
+## 6 quilpue        1
+## 7 quilpué        3
+## 8 valparaiso     1
+## 9 valparaíso     2
 ```
 
 ---
@@ -3333,7 +3335,7 @@ telefonos %&gt;%
 ```
 
 ```
-## # A tibble: 4 × 3
+## # A tibble: 4 x 3
 ##   nombre             ciudad  numero_telefonico
 ##   &lt;chr&gt;              &lt;chr&gt;   &lt;chr&gt;            
 ## 1 Hernández, Lautaro quilpué 56 964379583     
@@ -3364,13 +3366,13 @@ telefonos %&gt;%
 ```
 
 ```
-## # A tibble: 4 × 2
+## # A tibble: 4 x 2
 ##   ciudad         n
 ##   &lt;chr&gt;      &lt;int&gt;
-## 1 valparaiso     1
-## 2 Valparaiso     1
-## 3 valparaíso     2
-## 4 Valparaíso     5
+## 1 Valparaiso     1
+## 2 Valparaíso     5
+## 3 valparaiso     1
+## 4 valparaíso     2
 ```
 
 --
@@ -3386,7 +3388,7 @@ telefonos %&gt;%
 ```
 
 ```
-## # A tibble: 2 × 2
+## # A tibble: 2 x 2
 ##   ciudad        n
 ##   &lt;chr&gt;     &lt;int&gt;
 ## 1 La Serena     2
@@ -3421,7 +3423,7 @@ telefonos %&gt;% select(numero_telefonico) %&gt;% head()
 ```
 
 ```
-## # A tibble: 6 × 1
+## # A tibble: 6 x 1
 ##   numero_telefonico
 ##   &lt;chr&gt;            
 ## 1 +56 981497134    
@@ -3463,7 +3465,7 @@ telefonos %&gt;% count(ciudad_clean)
 ```
 
 ```
-## # A tibble: 4 × 2
+## # A tibble: 4 x 2
 ##   ciudad_clean     n
 ##   &lt;chr&gt;        &lt;int&gt;
 ## 1 La Serena        4
@@ -3499,7 +3501,7 @@ telefonos %&gt;%
 ```
 
 ```
-## # A tibble: 6 × 2
+## # A tibble: 6 x 2
 ##   numero_telefonico fono_clean
 ##   &lt;chr&gt;             &lt;chr&gt;     
 ## 1 +56 981497134     81497134  
@@ -3644,7 +3646,9 @@ class: center, middle
 
 ## Capacitación en R y herramientas de productividad - nivel intermedio
 
-## Proyecto Estratégico Metodologías y Ciencia de Datos para la Producción Estadística
+## Proyecto Ciencia de Datos
+
+## Strings y Regex
 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
